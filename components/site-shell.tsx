@@ -29,14 +29,14 @@ export function SiteShell({
     <PasswordGate>
       <div className="min-h-screen">
         <div className="mx-auto flex min-h-screen max-w-[1600px] gap-6 px-4 py-4 sm:px-6 lg:px-8">
-          <aside className="sticky top-4 hidden h-[calc(100vh-2rem)] w-[300px] shrink-0 flex-col rounded-[2rem] border border-white/70 bg-white/82 p-5 shadow-panel backdrop-blur lg:flex">
-            <Link href="/" className="rounded-[1.6rem] bg-[linear-gradient(155deg,#071a40,#3a3d8f_55%,#7b61ff)] p-4 text-white">
+          <aside className="sticky top-4 hidden h-[calc(100vh-2rem)] w-[300px] shrink-0 flex-col rounded-[2rem] border border-[#d9e2f0] bg-white p-5 shadow-panel lg:flex">
+            <Link href="/" className="rounded-[1.6rem] bg-[#0b214c] p-4 text-white">
               <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10">
-                  <Image src="/favicon.png" alt="Burkhart & Partners" width={38} height={38} />
+                <div className="rounded-2xl bg-white px-3 py-3">
+                  <Image src="/bp-logo.png" alt="Burkhart & Partners" width={132} height={38} />
                 </div>
-                <div>
-                  <div className="font-[var(--font-heading)] text-lg font-bold tracking-tight">
+                <div className="min-w-0">
+                  <div className="font-[var(--font-heading)] text-lg font-bold tracking-tight text-white">
                     BP Docu
                   </div>
                   <div className="text-sm text-white/75">Onboarding, Prozesse und Vorlagen</div>
@@ -52,8 +52,8 @@ export function SiteShell({
           </aside>
 
           <div className="min-w-0 flex-1">
-            <header className="mb-6 overflow-hidden rounded-[2rem] border border-white/70 bg-white/75 shadow-panel backdrop-blur">
-              <div className="bg-[linear-gradient(120deg,rgba(7,26,64,0.96),rgba(44,56,132,0.92)_55%,rgba(123,97,255,0.88))] px-5 py-5 text-white sm:px-6">
+            <header className="mb-6 overflow-hidden rounded-[2rem] border border-[#d9e2f0] bg-white shadow-panel">
+              <div className="bg-[#0b214c] px-5 py-5 text-white sm:px-6">
                 <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                   <div className="flex items-center gap-3">
                     <button
@@ -65,11 +65,11 @@ export function SiteShell({
                       <Menu className="h-5 w-5" />
                     </button>
                     <div className="flex items-center gap-3">
-                      <div className="hidden h-12 w-12 items-center justify-center rounded-2xl bg-white/10 sm:flex">
+                      <div className="hidden rounded-2xl bg-white px-3 py-3 sm:flex">
                         <Image
-                          src="/favicon.png"
+                          src="/bp-logo.png"
                           alt="Burkhart & Partners"
-                          width={38}
+                          width={132}
                           height={38}
                         />
                       </div>
@@ -90,7 +90,7 @@ export function SiteShell({
               </div>
 
               <div className="flex flex-wrap items-center gap-3 px-5 py-4 sm:px-6">
-                <div className="rounded-full bg-[#eef2ff] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#4a46d4]">
+                <div className="rounded-full bg-[#eaf0fb] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#0b214c]">
                   BP Internal
                 </div>
                 <div className="text-sm text-slate">
@@ -110,7 +110,7 @@ export function SiteShell({
             >
               <div className="flex items-center justify-between">
                 <Link href="/" onClick={() => setIsOpen(false)} className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-pine text-white">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#0b214c] text-white">
                     <BookText className="h-5 w-5" />
                   </div>
                   <div className="font-[var(--font-heading)] text-lg font-bold text-ink">

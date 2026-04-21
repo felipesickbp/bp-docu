@@ -46,16 +46,15 @@ export function PasswordGate({ children }: PasswordGateProps) {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#f6f7fb]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(91,82,255,0.18),transparent_28%),radial-gradient(circle_at_top_right,rgba(7,26,64,0.16),transparent_26%),linear-gradient(180deg,#ffffff,#eef2fb)]" />
-      <div className="absolute inset-0 bg-grid bg-[size:22px_22px] opacity-40" />
+    <div className="relative min-h-screen overflow-hidden bg-[#0b214c]">
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,#0b214c,#0d2758)]" />
 
       <div className="relative mx-auto flex min-h-screen max-w-6xl items-center justify-center px-4 py-10 sm:px-6">
         <div className="grid w-full gap-6 lg:grid-cols-[1.2fr_0.9fr]">
-          <div className="rounded-[2rem] border border-white/70 bg-[#071a40] p-8 text-white shadow-panel sm:p-10">
+          <div className="rounded-[2rem] border border-white/10 bg-[#071a40] p-8 text-white shadow-panel sm:p-10">
             <div className="flex items-center gap-4">
-              <div className="rounded-2xl bg-white/10 p-3">
-                <Image src="/favicon.png" alt="Burkhart & Partners" width={44} height={44} />
+              <div className="rounded-2xl bg-white px-3 py-3">
+                <Image src="/bp-logo.png" alt="Burkhart & Partners" width={140} height={42} />
               </div>
               <div>
                 <div className="text-sm uppercase tracking-[0.28em] text-white/65">
@@ -94,11 +93,11 @@ export function PasswordGate({ children }: PasswordGateProps) {
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-white/70 bg-white/92 p-8 shadow-panel backdrop-blur sm:p-10">
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#071a40,#5b52ff)] text-white">
+          <div className="rounded-[2rem] border border-[#d9e2f0] bg-white p-8 shadow-panel sm:p-10">
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0b214c] text-white">
               <LockKeyhole className="h-6 w-6" />
             </div>
-            <div className="mt-6 text-sm uppercase tracking-[0.24em] text-[#5b52ff]">
+            <div className="mt-6 text-sm uppercase tracking-[0.24em] text-[#0b214c]">
               Interner Zugang
             </div>
             <h2 className="mt-3 font-[var(--font-heading)] text-3xl font-bold tracking-tight text-[#071a40]">
@@ -125,7 +124,7 @@ export function PasswordGate({ children }: PasswordGateProps) {
               {error ? <p className="text-sm text-[#bf3f5f]">{error}</p> : null}
               <button
                 type="submit"
-                className="inline-flex h-14 w-full items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#071a40,#5b52ff)] px-5 text-sm font-semibold text-white transition hover:opacity-95"
+                className="inline-flex h-14 w-full items-center justify-center rounded-2xl bg-[#0b214c] px-5 text-sm font-semibold text-white transition hover:bg-[#12316c]"
               >
                 Wissensdatenbank oeffnen
               </button>

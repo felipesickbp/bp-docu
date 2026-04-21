@@ -16,21 +16,94 @@ const DEFAULT_ITEMS = [
 
 const USEFUL_LINKS = [
   {
+    title: "Kontera",
+    href: "https://kontera.ch/",
+    infoHref: "https://kontera.ch/",
+    usage: "Zur Verarbeitung von Belegen, zum Einlesen und fuer Importe in die Buchhaltung.",
+  },
+  {
+    title: "bexio IDP",
+    href: "https://idp.bexio.com/",
+    infoHref: "https://www.bexio.com/",
+    usage: "Haupt-Buchhaltungstool, das wir fuer viele Kunden und operative Finanzprozesse nutzen.",
+  },
+  {
     title: "ESTV MWST Portal",
     href: "https://www.mwstabrechnen.estv.admin.ch/pro/home",
-    description: "Offizielles Portal fuer MWST-Abrechnung und related Aufgaben.",
+    infoHref: "https://www.mwstabrechnen.estv.admin.ch/pro/home",
+    usage: "Fuer MWST-Abrechnungen, Deklarationen und die offizielle Bearbeitung gegenueber der ESTV.",
   },
   {
     title: "eAdminPortal",
     href: "https://www.eadminportal.ch/portal/Portal.do?login",
-    description: "Zentraler Einstieg fuer weitere administrative Portale.",
+    infoHref: "https://www.eadminportal.ch/portal/Portal.do?login",
+    usage: "Zentraler Einstieg fuer administrative Portale und weitere behoerdliche Abwicklungen.",
   },
   {
     title: "bexflow",
     href: "https://bexflow.ch/de",
-    description: "Unternehmensplattform fuer den produktnahen Arbeitskontext.",
+    infoHref: "https://bexflow.ch/de",
+    usage: "Interne Unternehmensplattform fuer produktnahe Prozesse und den Arbeitskontext im Team.",
+  },
+  {
+    title: "Weitere Doku",
+    href: "/bexio/buchungsimporte",
+    infoHref: "/mwst/ueberblick",
+    usage: "Direkte interne Vertiefung in unsere ersten dokumentierten BP-Docu-Prozesse.",
   },
 ];
+
+type UsefulLink = {
+  title: string;
+  href: string;
+  infoHref: string;
+  usage: string;
+};
+
+function UsefulLinksSection() {
+  return (
+    <div className="mt-8 rounded-[2rem] border border-[#dde4f5] bg-white p-6 shadow-sm sm:p-8">
+      <div className="text-xs font-semibold uppercase tracking-[0.22em] text-[#0b214c]">
+        Nuetzliche Links
+      </div>
+      <h2 className="mt-2 font-[var(--font-heading)] text-2xl font-bold tracking-tight text-[#071a40]">
+        Schnellzugriff fuer den Start
+      </h2>
+      <div className="mt-6 space-y-4">
+        {USEFUL_LINKS.map((link: UsefulLink) => (
+          <div
+            key={`${link.title}-${link.href}`}
+            className="rounded-2xl border border-[#e7ebf6] bg-[#fbfcfe] p-5"
+          >
+            <div className="flex items-center justify-between gap-3">
+              <div className="text-base font-semibold text-[#071a40]">{link.title}</div>
+              <ExternalLink className="h-4 w-4 text-[#0b214c]" />
+            </div>
+            <p className="mt-3 text-sm leading-6 text-[#42506c]">{link.usage}</p>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <Link
+                href={link.href}
+                target={link.href.startsWith("http") ? "_blank" : undefined}
+                rel={link.href.startsWith("http") ? "noreferrer" : undefined}
+                className="inline-flex items-center rounded-full bg-[#0b214c] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#12316c]"
+              >
+                Oeffnen
+              </Link>
+              <Link
+                href={link.infoHref}
+                target={link.infoHref.startsWith("http") ? "_blank" : undefined}
+                rel={link.infoHref.startsWith("http") ? "noreferrer" : undefined}
+                className="inline-flex items-center rounded-full border border-[#d7dff0] px-4 py-2 text-sm font-medium text-[#071a40] transition hover:border-[#0b214c]"
+              >
+                Mehr Infos
+              </Link>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export function OnboardingChecklist() {
   const [activeItems, setActiveItems] = useState<string[]>(DEFAULT_ITEMS);
@@ -90,11 +163,11 @@ export function OnboardingChecklist() {
   );
 
   return (
-    <section className="mt-10 grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
+    <section className="mt-10">
       <div className="rounded-[2rem] border border-[#dde4f5] bg-white p-6 shadow-sm sm:p-8">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <div className="text-xs font-semibold uppercase tracking-[0.22em] text-[#5b52ff]">
+            <div className="text-xs font-semibold uppercase tracking-[0.22em] text-[#0b214c]">
               Onboarding Checklist
             </div>
             <h2 className="mt-2 font-[var(--font-heading)] text-2xl font-bold tracking-tight text-[#071a40]">
@@ -108,14 +181,14 @@ export function OnboardingChecklist() {
           <button
             type="button"
             onClick={resetChecklist}
-            className="inline-flex items-center gap-2 rounded-full border border-[#d7dff0] px-4 py-2 text-sm font-medium text-[#071a40] transition hover:border-[#5b52ff] hover:text-[#5b52ff]"
+            className="inline-flex items-center gap-2 rounded-full border border-[#d7dff0] px-4 py-2 text-sm font-medium text-[#071a40] transition hover:border-[#0b214c] hover:text-[#0b214c]"
           >
             <RotateCcw className="h-4 w-4" />
             Reset
           </button>
         </div>
 
-        <div className="mt-6 rounded-2xl bg-[linear-gradient(135deg,rgba(7,26,64,0.06),rgba(91,82,255,0.08))] p-4 text-sm text-[#071a40]">
+        <div className="mt-6 rounded-2xl bg-[#edf3fb] p-4 text-sm text-[#071a40]">
           Erledigt: <span className="font-semibold">{completedCount}</span> von{" "}
           <span className="font-semibold">{totalCount}</span>
         </div>
@@ -127,9 +200,9 @@ export function OnboardingChecklist() {
                 key={item}
                 type="button"
                 onClick={() => archiveItem(item)}
-                className="flex w-full items-start gap-3 rounded-2xl border border-[#e7ebf6] bg-[#f9fbff] px-4 py-4 text-left transition hover:-translate-y-0.5 hover:border-[#5b52ff] hover:bg-white"
+                className="flex w-full items-start gap-3 rounded-2xl border border-[#e7ebf6] bg-[#f9fbff] px-4 py-4 text-left transition hover:border-[#0b214c] hover:bg-white"
               >
-                <Circle className="mt-0.5 h-5 w-5 shrink-0 text-[#5b52ff]" />
+                <Circle className="mt-0.5 h-5 w-5 shrink-0 text-[#0b214c]" />
                 <span className="text-sm leading-7 text-[#071a40]">{item}</span>
               </button>
             ))
@@ -150,7 +223,7 @@ export function OnboardingChecklist() {
                   key={item}
                   type="button"
                   onClick={() => restoreItem(item)}
-                  className="flex w-full items-start gap-3 rounded-2xl border border-[#dfe6f6] bg-white px-4 py-4 text-left transition hover:border-[#5b52ff]"
+                  className="flex w-full items-start gap-3 rounded-2xl border border-[#dfe6f6] bg-white px-4 py-4 text-left transition hover:border-[#0b214c]"
                 >
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#2d8f6f]" />
                   <span className="text-sm leading-7 text-[#42506c]">{item}</span>
@@ -164,32 +237,7 @@ export function OnboardingChecklist() {
           </div>
         </div>
       </div>
-
-      <div className="rounded-[2rem] border border-[#dde4f5] bg-white p-6 shadow-sm sm:p-8">
-        <div className="text-xs font-semibold uppercase tracking-[0.22em] text-[#5b52ff]">
-          Nuetzliche Links
-        </div>
-        <h2 className="mt-2 font-[var(--font-heading)] text-2xl font-bold tracking-tight text-[#071a40]">
-          Schnellzugriff fuer den Start
-        </h2>
-        <div className="mt-6 space-y-4">
-          {USEFUL_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              target="_blank"
-              rel="noreferrer"
-              className="block rounded-2xl border border-[#e7ebf6] bg-[linear-gradient(180deg,#ffffff,#f8faff)] p-5 transition hover:-translate-y-0.5 hover:border-[#5b52ff]"
-            >
-              <div className="flex items-center justify-between gap-3">
-                <div className="text-base font-semibold text-[#071a40]">{link.title}</div>
-                <ExternalLink className="h-4 w-4 text-[#5b52ff]" />
-              </div>
-              <p className="mt-2 text-sm leading-6 text-[#42506c]">{link.description}</p>
-            </Link>
-          ))}
-        </div>
-      </div>
+      <UsefulLinksSection />
     </section>
   );
 }
