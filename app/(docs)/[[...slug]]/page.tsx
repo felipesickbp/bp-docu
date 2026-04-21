@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
+import { OnboardingChecklist } from "@/components/onboarding-checklist";
 import { SiteShell } from "@/components/site-shell";
 import { mdxComponents } from "@/components/mdx-components";
 import {
@@ -61,6 +62,7 @@ export default function DocPage({ params }: PageProps) {
             options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
           />
         </article>
+        {doc.href === "/onboarding/erste-woche" ? <OnboardingChecklist /> : null}
       </div>
     </SiteShell>
   );

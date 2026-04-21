@@ -5,6 +5,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "BP Docu",
   description: "Interne Wissensdatenbank fuer Onboarding, Prozesse und Vorlagen.",
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
 };
 
 export default function RootLayout({

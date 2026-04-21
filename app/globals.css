@@ -16,9 +16,9 @@ body {
   @apply bg-canvas text-ink antialiased;
   font-family: var(--font-body);
   background-image:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(244, 243, 238, 0.94)),
-    radial-gradient(circle at top left, rgba(197, 138, 23, 0.18), transparent 30%),
-    radial-gradient(circle at top right, rgba(31, 77, 63, 0.12), transparent 28%);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(242, 245, 252, 0.98)),
+    radial-gradient(circle at top left, rgba(91, 82, 255, 0.14), transparent 28%),
+    radial-gradient(circle at top right, rgba(7, 26, 64, 0.12), transparent 26%);
   min-height: 100vh;
 }
 
@@ -58,19 +58,19 @@ body {
 }
 
 .docs-prose code {
-  @apply rounded-md bg-mist px-1.5 py-1 text-sm text-ink;
+  @apply rounded-md bg-[#eef1fb] px-1.5 py-1 text-sm text-ink;
 }
 
 .docs-prose pre {
-  @apply mt-6 overflow-x-auto rounded-2xl bg-ink p-5 text-sm text-white;
+  @apply mt-6 overflow-x-auto rounded-2xl bg-[#071a40] p-5 text-sm text-white;
 }
 
 .docs-prose a {
-  @apply font-medium text-pine underline decoration-pine/30 underline-offset-4;
+  @apply font-medium text-[#4a46d4] underline decoration-[#4a46d4]/30 underline-offset-4;
 }
 
 .docs-prose blockquote {
-  @apply mt-6 rounded-r-2xl border-l-4 border-amber bg-white/70 px-5 py-3 italic text-slate;
+  @apply mt-6 rounded-r-2xl border-l-4 border-[#5b52ff] bg-[#f7f8fe] px-5 py-3 italic text-slate;
 }
 
 .docs-prose hr {
