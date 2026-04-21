@@ -31,7 +31,7 @@ export function SiteShell({
         <div className="mx-auto flex min-h-screen max-w-[1600px] gap-6 px-4 py-4 sm:px-6 lg:px-8">
           <aside className="sticky top-4 hidden h-[calc(100vh-2rem)] w-[300px] shrink-0 flex-col rounded-[2rem] border border-[#d9e2f0] bg-white p-5 shadow-panel lg:flex">
             <Link href="/" className="rounded-[1.6rem] bg-[#0b214c] p-4 text-white">
-              <div className="rounded-2xl bg-white px-3 py-3">
+              <div className="px-1 py-1">
                 <Image
                   src="/bp-logo-white.png"
                   alt="Burkhart & Partners"
