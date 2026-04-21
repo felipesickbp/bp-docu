@@ -32,7 +32,12 @@ export function SiteShell({
           <aside className="sticky top-4 hidden h-[calc(100vh-2rem)] w-[300px] shrink-0 flex-col rounded-[2rem] border border-[#d9e2f0] bg-white p-5 shadow-panel lg:flex">
             <Link href="/" className="rounded-[1.6rem] bg-[#0b214c] p-4 text-white">
               <div className="rounded-2xl bg-white px-3 py-3">
-                <Image src="/bp-logo.png" alt="Burkhart & Partners" width={132} height={38} />
+                <Image
+                  src="/bp-logo-white.png"
+                  alt="Burkhart & Partners"
+                  width={132}
+                  height={38}
+                />
               </div>
             </Link>
             <div className="mt-5">

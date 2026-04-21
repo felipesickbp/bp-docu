@@ -43,7 +43,7 @@ export default function DocPage({ params }: PageProps) {
   }
 
   const isOnboardingPage = doc.href === "/onboarding/erste-woche";
-  const isUsefulLinksPage = doc.href === "/onboarding/nützliche-links";
+  const isUsefulLinksPage = doc.href === "/onboarding/nuetzliche-links";
 
   return (
     <SiteShell
