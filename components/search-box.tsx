@@ -88,7 +88,7 @@ export function SearchBox({
                 href={`/search?q=${encodeURIComponent(query)}`}
                 className="block bg-canvas px-4 py-3 text-sm font-medium text-pine transition hover:bg-mist/50"
               >
-                Alle Treffer fuer "{query}" ansehen
+                Alle Treffer für "{query}" ansehen
               </Link>
             </div>
           ) : (

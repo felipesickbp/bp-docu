@@ -59,8 +59,8 @@ const USEFUL_LINKS = [
   },
   {
     title: "Weitere Doku",
-    href: "/bexio/buchungsimporte",
-    infoHref: "/mwst/ueberblick",
+    href: "/buchhaltung/buchungsimporte",
+    infoHref: "/steuern-mwst/mwst",
     usage: "Direkte interne Vertiefung in unsere ersten dokumentierten BP-Docu-Prozesse.",
   },
 ];
@@ -92,7 +92,7 @@ export function UsefulLinksSection() {
                 rel={link.href.startsWith("http") ? "noreferrer" : undefined}
                 className="inline-flex items-center rounded-full bg-[#0b214c] px-4 py-2 text-sm font-medium text-white transition hover:bg-[#12316c]"
               >
-                Oeffnen
+                Öffnen
               </Link>
               <Link
                 href={link.infoHref}

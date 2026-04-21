@@ -4,22 +4,21 @@ import matter from "gray-matter";
 
 const CONTENT_ROOT = path.join(process.cwd(), "content");
 
-const SECTION_LABELS: Record<string, string> = {
-  start: "Start",
-  onboarding: "Onboarding",
-  mwst: "MWST",
-  payroll: "Payroll",
-  bexio: "bexio",
-  vorlagen: "Vorlagen",
-};
-
-const SECTION_ORDER = ["Start", "Onboarding", "MWST", "Payroll", "bexio", "Vorlagen"];
+const SECTION_ORDER = [
+  "Unternehmen",
+  "Mandate & Kunden",
+  "Buchhaltung",
+  "Personaladministration / Payroll",
+  "Steuern / MWST",
+  "Ressourcen",
+];
 
 export type Doc = {
   slug: string[];
   title: string;
   description: string;
   section: string;
+  navOrder: number;
   content: string;
   href: string;
 };
@@ -75,11 +74,6 @@ function filePathToSlug(filePath: string) {
   return withoutExtension.split(path.sep);
 }
 
-function slugToSection(slug: string[]) {
-  const topLevel = slug[0] ?? "start";
-  return SECTION_LABELS[topLevel] ?? topLevel;
-}
-
 export function slugToHref(slug: string[]) {
   return slug.length === 0 ? "/" : `/${slug.join("/")}`;
 }
@@ -97,12 +91,13 @@ export function getAllDocs(): Doc[] {
         slug,
         title: String(data.title ?? slug.at(-1) ?? "Unbenannt"),
         description: String(data.description ?? ""),
-        section: String(data.section ?? slugToSection(slug)),
+        section: String(data.section ?? "Allgemein"),
+        navOrder: Number(data.navOrder ?? 999),
         content,
         href: slugToHref(slug),
       };
     })
-    .sort((a, b) => a.href.localeCompare(b.href));
+    .sort((a, b) => a.navOrder - b.navOrder || a.href.localeCompare(b.href));
 }
 
 export function getDocBySlug(slug: string[]) {
@@ -131,7 +126,19 @@ export function getNavigation(): NavGroup[] {
     });
   }
 
-  return Array.from(groups.values()).filter((group) => group.items.length > 0);
+  const ordered = Array.from(groups.entries())
+    .sort((a, b) => {
+      const aIndex = SECTION_ORDER.indexOf(a[0]);
+      const bIndex = SECTION_ORDER.indexOf(b[0]);
+      const safeA = aIndex === -1 ? SECTION_ORDER.length : aIndex;
+      const safeB = bIndex === -1 ? SECTION_ORDER.length : bIndex;
+
+      return safeA - safeB || a[0].localeCompare(b[0]);
+    })
+    .map(([, group]) => group)
+    .filter((group) => group.items.length > 0);
+
+  return ordered;
 }
 
 export function getSearchEntries(): SearchEntry[] {
