@@ -80,7 +80,7 @@ export function SearchResults({ entries }: SearchResultsProps) {
 
       {query.trim() && results.length === 0 ? (
         <div className="mt-8 rounded-2xl border border-dashed border-mist bg-canvas/70 p-6 text-slate">
-          Keine Treffer fuer "{query}". Versuche eine Abteilung, einen Prozessnamen oder
+          Keine Treffer für "{query}". Versuche eine Abteilung, einen Prozessnamen oder
           einen Fachbegriff.
         </div>
       ) : null}

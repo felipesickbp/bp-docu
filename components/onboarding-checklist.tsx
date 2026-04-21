@@ -7,10 +7,10 @@ import { useEffect, useMemo, useState } from "react";
 const CHECKLIST_STORAGE_KEY = "bp-docu-onboarding-checklist";
 
 const DEFAULT_ITEMS = [
-  "Laptop, E-Mail und Kalenderzugang pruefen",
+  "Laptop, E-Mail und Kalenderzugang prüfen",
   "Teams, geteilte Ordner und Passwort-Tools einrichten",
   "Vorstellung mit Teamlead und wichtigsten Ansprechpartnern machen",
-  "Wichtige Prozesse im eigenen Bereich ueberblicken",
+  "Wichtige Prozesse im eigenen Bereich überblicken",
   "Erste Fragen und offene Punkte dokumentieren",
 ];
 
@@ -19,31 +19,37 @@ const USEFUL_LINKS = [
     title: "Kontera",
     href: "https://kontera.ch/",
     infoHref: "https://kontera.ch/",
-    usage: "Zur Verarbeitung von Belegen, zum Einlesen und fuer Importe in die Buchhaltung.",
+    usage: "Zur Verarbeitung von Belegen, zum Einlesen und für Importe in die Buchhaltung.",
   },
   {
     title: "bexio IDP",
     href: "https://idp.bexio.com/",
     infoHref: "https://www.bexio.com/",
-    usage: "Haupt-Buchhaltungstool, das wir fuer viele Kunden und operative Finanzprozesse nutzen.",
+    usage: "Haupt-Buchhaltungstool, das wir für viele Kunden und operative Finanzprozesse nutzen.",
   },
   {
     title: "ESTV MWST Portal",
     href: "https://www.mwstabrechnen.estv.admin.ch/pro/home",
     infoHref: "https://www.mwstabrechnen.estv.admin.ch/pro/home",
-    usage: "Fuer MWST-Abrechnungen, Deklarationen und die offizielle Bearbeitung gegenueber der ESTV.",
+    usage: "Für MWST-Abrechnungen, Deklarationen und die offizielle Bearbeitung gegenüber der ESTV.",
   },
   {
     title: "eAdminPortal",
     href: "https://www.eadminportal.ch/portal/Portal.do?login",
     infoHref: "https://www.eadminportal.ch/portal/Portal.do?login",
-    usage: "Zentraler Einstieg fuer administrative Portale und weitere behoerdliche Abwicklungen.",
+    usage: "Zentraler Einstieg für administrative Portale und weitere behördliche Abwicklungen.",
   },
   {
     title: "bexflow",
     href: "https://bexflow.ch/de",
     infoHref: "https://bexflow.ch/de",
-    usage: "Interne Unternehmensplattform fuer produktnahe Prozesse und den Arbeitskontext im Team.",
+    usage: "Interne Unternehmensplattform für produktnahe Prozesse und den Arbeitskontext im Team.",
+  },
+  {
+    title: "e-post",
+    href: "https://www.epost.ch/de-ch/geschaeftskunden",
+    infoHref: "https://www.epost.ch/de-ch/geschaeftskunden",
+    usage: "Um Post digital zu verteilen und Sendungen intern an die richtigen Kollegen weiterzugeben.",
   },
   {
     title: "Weitere Doku",
@@ -60,14 +66,14 @@ type UsefulLink = {
   usage: string;
 };
 
-function UsefulLinksSection() {
+export function UsefulLinksSection() {
   return (
     <div className="mt-8 rounded-[2rem] border border-[#dde4f5] bg-white p-6 shadow-sm sm:p-8">
       <div className="text-xs font-semibold uppercase tracking-[0.22em] text-[#0b214c]">
-        Nuetzliche Links
+        Nützliche Links
       </div>
       <h2 className="mt-2 font-[var(--font-heading)] text-2xl font-bold tracking-tight text-[#071a40]">
-        Schnellzugriff fuer den Start
+        Schnellzugriff für den Start
       </h2>
       <div className="mt-6 space-y-4">
         {USEFUL_LINKS.map((link: UsefulLink) => (
@@ -171,11 +177,11 @@ export function OnboardingChecklist() {
               Onboarding Checklist
             </div>
             <h2 className="mt-2 font-[var(--font-heading)] text-2xl font-bold tracking-tight text-[#071a40]">
-              Erste Schritte fuer neue Mitarbeitende
+              Erste Schritte für neue Mitarbeitende
             </h2>
             <p className="mt-3 max-w-2xl text-sm leading-7 text-[#42506c]">
               Klick auf einen Punkt, wenn er erledigt ist. Der Eintrag wandert danach
-              automatisch ins Archiv und bleibt fuer diesen Browser gespeichert.
+              automatisch ins Archiv und bleibt für diesen Browser gespeichert.
             </p>
           </div>
           <button
@@ -209,7 +215,7 @@ export function OnboardingChecklist() {
           ) : (
             <div className="rounded-2xl border border-dashed border-[#d7dff0] bg-[#f7f9ff] px-4 py-5 text-sm text-[#42506c]">
               Alles erledigt. Im Archiv kannst du Punkte bei Bedarf wieder
-              zurueckholen.
+              zurückholen.
             </div>
           )}
         </div>

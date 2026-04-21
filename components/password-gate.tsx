@@ -46,90 +46,50 @@ export function PasswordGate({ children }: PasswordGateProps) {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#0b214c]">
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,#0b214c,#0d2758)]" />
+    <div className="min-h-screen bg-[#0b214c]">
+      <div className="mx-auto flex min-h-screen max-w-3xl items-center justify-center px-4 py-10 sm:px-6">
+        <div className="w-full rounded-[2rem] border border-white/10 bg-white p-8 shadow-[0_12px_30px_rgba(7,26,64,0.12)] sm:p-10">
+          <div className="rounded-2xl bg-[#0b214c] px-4 py-4">
+            <Image src="/bp-logo.png" alt="Burkhart & Partners" width={150} height={44} />
+          </div>
 
-      <div className="relative mx-auto flex min-h-screen max-w-6xl items-center justify-center px-4 py-10 sm:px-6">
-        <div className="grid w-full gap-6 lg:grid-cols-[1.2fr_0.9fr]">
-          <div className="rounded-[2rem] border border-white/10 bg-[#071a40] p-8 text-white shadow-panel sm:p-10">
-            <div className="flex items-center gap-4">
-              <div className="rounded-2xl bg-white px-3 py-3">
-                <Image src="/bp-logo.png" alt="Burkhart & Partners" width={140} height={42} />
-              </div>
-              <div>
-                <div className="text-sm uppercase tracking-[0.28em] text-white/65">
-                  Burkhart & Partners
-                </div>
-                <h1 className="mt-2 font-[var(--font-heading)] text-4xl font-bold tracking-tight">
-                  BP Docu
-                </h1>
-              </div>
+          <div className="mt-8 flex items-center gap-3 text-[#0b214c]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0b214c] text-white">
+              <LockKeyhole className="h-5 w-5" />
             </div>
-
-            <p className="mt-8 max-w-xl text-lg leading-8 text-white/82">
-              Interne Wissensdatenbank fuer Onboarding, Prozesse, Vorlagen und
-              teamrelevante Informationen.
-            </p>
-
-            <div className="mt-10 grid gap-4 sm:grid-cols-3">
-              <div className="rounded-2xl border border-white/10 bg-white/8 p-4">
-                <div className="text-xs uppercase tracking-[0.22em] text-white/55">
-                  Inhalt
-                </div>
-                <div className="mt-2 text-base font-semibold">Onboarding und Prozesse</div>
+            <div>
+              <div className="font-[var(--font-heading)] text-3xl font-bold tracking-tight">
+                Wissensdatenbank
               </div>
-              <div className="rounded-2xl border border-white/10 bg-white/8 p-4">
-                <div className="text-xs uppercase tracking-[0.22em] text-white/55">
-                  Zugriff
-                </div>
-                <div className="mt-2 text-base font-semibold">Einfacher Passwortschutz</div>
-              </div>
-              <div className="rounded-2xl border border-white/10 bg-white/8 p-4">
-                <div className="text-xs uppercase tracking-[0.22em] text-white/55">
-                  V1
-                </div>
-                <div className="mt-2 text-base font-semibold">Schnell testbar auf dem VM</div>
-              </div>
+              <div className="mt-1 text-sm text-[#5a6985]">Version 21.04.2026</div>
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-[#d9e2f0] bg-white p-8 shadow-panel sm:p-10">
-            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#0b214c] text-white">
-              <LockKeyhole className="h-6 w-6" />
-            </div>
-            <div className="mt-6 text-sm uppercase tracking-[0.24em] text-[#0b214c]">
-              Interner Zugang
-            </div>
-            <h2 className="mt-3 font-[var(--font-heading)] text-3xl font-bold tracking-tight text-[#071a40]">
-              Inhalte entsperren
-            </h2>
-            <p className="mt-4 leading-7 text-[#42506c]">
-              Fuer V1 ist ein einfacher Passwortschutz aktiv. Das ist praktisch fuer
-              internes Testen, aber noch kein vollwertiger Sicherheitsmechanismus.
-            </p>
+          <p className="mt-6 leading-7 text-[#42506c]">
+            Interne Wissensdatenbank für Onboarding, Prozesse und Vorlagen.
+          </p>
 
-            <form onSubmit={handleSubmit} className="mt-8 space-y-4">
-              <label className="block">
-                <span className="mb-2 block text-sm font-medium text-[#071a40]">
-                  Passwort
-                </span>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                  className="h-14 w-full rounded-2xl border border-[#d7dff0] bg-[#f6f8fd] px-4 text-[#071a40] outline-none transition focus:border-[#5b52ff]"
-                  placeholder="Passwort eingeben"
-                />
-              </label>
-              {error ? <p className="text-sm text-[#bf3f5f]">{error}</p> : null}
-              <button
-                type="submit"
-                className="inline-flex h-14 w-full items-center justify-center rounded-2xl bg-[#0b214c] px-5 text-sm font-semibold text-white transition hover:bg-[#12316c]"
-              >
-                Wissensdatenbank oeffnen
-              </button>
-            </form>
-          </div>
+          <form onSubmit={handleSubmit} className="mt-8 space-y-4">
+            <label className="block">
+              <span className="mb-2 block text-sm font-medium text-[#071a40]">
+                Passwort
+              </span>
+              <input
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                className="h-14 w-full rounded-2xl border border-[#d7dff0] bg-[#f6f8fd] px-4 text-[#071a40] outline-none transition focus:border-[#0b214c]"
+                placeholder="Passwort eingeben"
+              />
+            </label>
+            {error ? <p className="text-sm text-[#bf3f5f]">{error}</p> : null}
+            <button
+              type="submit"
+              className="inline-flex h-14 w-full items-center justify-center rounded-2xl bg-[#0b214c] px-5 text-sm font-semibold text-white transition hover:bg-[#12316c]"
+            >
+              Wissensdatenbank öffnen
+            </button>
+          </form>
         </div>
       </div>
     </div>

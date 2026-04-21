@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
-import { OnboardingChecklist } from "@/components/onboarding-checklist";
+import { OnboardingChecklist, UsefulLinksSection } from "@/components/onboarding-checklist";
 import { SiteShell } from "@/components/site-shell";
 import { mdxComponents } from "@/components/mdx-components";
 import {
@@ -42,6 +42,9 @@ export default function DocPage({ params }: PageProps) {
     notFound();
   }
 
+  const isOnboardingPage = doc.href === "/onboarding/erste-woche";
+  const isUsefulLinksPage = doc.href === "/onboarding/nützliche-links";
+
   return (
     <SiteShell
       navigation={getNavigation()}
@@ -55,14 +58,15 @@ export default function DocPage({ params }: PageProps) {
           </span>
           <span className="text-sm text-slate">{doc.description}</span>
         </div>
-        <article className="docs-prose">
+        {isOnboardingPage ? <OnboardingChecklist /> : null}
+        <article className={isOnboardingPage ? "docs-prose mt-12" : "docs-prose"}>
           <MDXRemote
             source={doc.content}
             components={mdxComponents}
             options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
           />
         </article>
-        {doc.href === "/onboarding/erste-woche" ? <OnboardingChecklist /> : null}
+        {isUsefulLinksPage ? <UsefulLinksSection /> : null}
       </div>
     </SiteShell>
   );

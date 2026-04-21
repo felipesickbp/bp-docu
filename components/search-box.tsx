@@ -93,7 +93,7 @@ export function SearchBox({
             </div>
           ) : (
             <div className="px-4 py-5 text-sm text-slate">
-              Keine direkten Treffer. Versuche kuerzere Begriffe oder einen anderen Prozessnamen.
+              Keine direkten Treffer. Versuche kürzere Begriffe oder einen anderen Prozessnamen.
             </div>
           )}
         </div>
