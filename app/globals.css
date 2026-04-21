@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --font-body: "IBM Plex Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-heading: "Space Grotesk", "Avenir Next", "Segoe UI", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-canvas text-ink antialiased;
+  font-family: var(--font-body);
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.75), rgba(244, 243, 238, 0.94)),
+    radial-gradient(circle at top left, rgba(197, 138, 23, 0.18), transparent 30%),
+    radial-gradient(circle at top right, rgba(31, 77, 63, 0.12), transparent 28%);
+  min-height: 100vh;
+}
+
+* {
+  @apply border-mist;
+}
+
+.docs-prose {
+  @apply max-w-none text-[1.02rem] leading-7 text-slate;
+}
+
+.docs-prose h1 {
+  @apply mt-2 text-4xl font-bold tracking-tight text-ink;
+}
+
+.docs-prose h2 {
+  @apply mt-10 text-2xl font-semibold tracking-tight text-ink;
+}
+
+.docs-prose h3 {
+  @apply mt-8 text-xl font-semibold text-ink;
+}
+
+.docs-prose p,
+.docs-prose ul,
+.docs-prose ol {
+  @apply mt-4;
+}
+
+.docs-prose ul,
+.docs-prose ol {
+  @apply pl-6;
+}
+
+.docs-prose li {
+  @apply mt-2;
+}
+
+.docs-prose code {
+  @apply rounded-md bg-mist px-1.5 py-1 text-sm text-ink;
+}
+
+.docs-prose pre {
+  @apply mt-6 overflow-x-auto rounded-2xl bg-ink p-5 text-sm text-white;
+}
+
+.docs-prose a {
+  @apply font-medium text-pine underline decoration-pine/30 underline-offset-4;
+}
+
+.docs-prose blockquote {
+  @apply mt-6 rounded-r-2xl border-l-4 border-amber bg-white/70 px-5 py-3 italic text-slate;
+}
+
+.docs-prose hr {
+  @apply my-8 border-mist;
+}
+
+.docs-prose table {
+  @apply mt-6 w-full border-collapse overflow-hidden rounded-2xl;
+}
+
+.docs-prose th,
+.docs-prose td {
+  @apply border border-mist px-4 py-3 text-left;
+}
