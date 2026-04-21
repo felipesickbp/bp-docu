@@ -50,7 +50,12 @@ export function PasswordGate({ children }: PasswordGateProps) {
       <div className="mx-auto flex min-h-screen max-w-3xl items-center justify-center px-4 py-10 sm:px-6">
         <div className="w-full rounded-[2rem] border border-white/10 bg-white p-8 shadow-[0_12px_30px_rgba(7,26,64,0.12)] sm:p-10">
           <div className="rounded-2xl bg-[#0b214c] px-4 py-4">
-            <Image src="/bp-logo.png" alt="Burkhart & Partners" width={150} height={44} />
+            <Image
+              src="/bp-logo-white.png"
+              alt="Burkhart & Partners"
+              width={150}
+              height={44}
+            />
           </div>
 
           <div className="mt-8 flex items-center gap-3 text-[#0b214c]">
