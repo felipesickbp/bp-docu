@@ -22,7 +22,7 @@ const USEFUL_LINKS = [
     usage: "Zur Verarbeitung von Belegen, zum Einlesen und für Importe in die Buchhaltung.",
   },
   {
-    title: "bexio IDP",
+    title: "bexio",
     href: "https://idp.bexio.com/",
     infoHref: "https://www.bexio.com/",
     usage: "Haupt-Buchhaltungstool, das wir für viele Kunden und operative Finanzprozesse nutzen.",
@@ -52,6 +52,12 @@ const USEFUL_LINKS = [
     usage: "Um Post digital zu verteilen und Sendungen intern an die richtigen Kollegen weiterzugeben.",
   },
   {
+    title: "Zefix",
+    href: "https://www.zefix.ch/de/search/entity/welcome",
+    infoHref: "https://www.zefix.ch/de/search/entity/welcome",
+    usage: "Hier nehmen wir Kundeninformationen, die offiziell im Handelsregister eingetragen sind.",
+  },
+  {
     title: "Weitere Doku",
     href: "/bexio/buchungsimporte",
     infoHref: "/mwst/ueberblick",
@@ -68,14 +74,7 @@ type UsefulLink = {
 
 export function UsefulLinksSection() {
   return (
-    <div className="mt-8 rounded-[2rem] border border-[#dde4f5] bg-white p-6 shadow-sm sm:p-8">
-      <div className="text-xs font-semibold uppercase tracking-[0.22em] text-[#0b214c]">
-        Nützliche Links
-      </div>
-      <h2 className="mt-2 font-[var(--font-heading)] text-2xl font-bold tracking-tight text-[#071a40]">
-        Schnellzugriff für den Start
-      </h2>
-      <div className="mt-6 space-y-4">
+    <div className="mt-8 space-y-4">
         {USEFUL_LINKS.map((link: UsefulLink) => (
           <div
             key={`${link.title}-${link.href}`}
@@ -106,7 +105,6 @@ export function UsefulLinksSection() {
             </div>
           </div>
         ))}
-      </div>
     </div>
   );
 }
