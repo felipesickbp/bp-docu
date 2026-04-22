@@ -3,7 +3,8 @@
 import clsx from "clsx";
 import { Search } from "lucide-react";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 import type { SearchEntry } from "@/lib/docs";
 
 type SearchBoxProps = {
@@ -45,16 +46,40 @@ export function SearchBox({
   initialQuery = "",
   compact = false,
 }: SearchBoxProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [query, setQuery] = useState(initialQuery);
   const results = useMemo(() => rankEntries(entries, query), [entries, query]);
+  const trimmedQuery = query.trim();
+
+  useEffect(() => {
+    if (pathname === "/search") {
+      setQuery(searchParams.get("q") ?? "");
+    }
+  }, [pathname, searchParams]);
+
+  function submitSearch() {
+    const params = new URLSearchParams();
+
+    if (trimmedQuery) {
+      params.set("q", trimmedQuery);
+    }
+
+    router.push(`/search${params.toString() ? `?${params.toString()}` : ""}`);
+  }
 
   return (
     <div className="relative">
-      <div
+      <form
         className={clsx(
           "flex items-center gap-3 rounded-2xl border border-white/80 bg-white/85 px-4 shadow-sm backdrop-blur",
           compact ? "h-11" : "h-12",
         )}
+        onSubmit={(event) => {
+          event.preventDefault();
+          submitSearch();
+        }}
       >
         <Search className="h-4 w-4 text-slate" />
         <input
@@ -63,9 +88,9 @@ export function SearchBox({
           placeholder="Suche nach Prozessen, Themen, Begriffen..."
           className="w-full bg-transparent text-sm text-ink outline-none placeholder:text-slate/70"
         />
-      </div>
+      </form>
 
-      {query.trim() ? (
+      {trimmedQuery ? (
         <div className="absolute left-0 right-0 top-[calc(100%+0.75rem)] z-30 overflow-hidden rounded-2xl border border-white/70 bg-panel shadow-panel">
           {results.length > 0 ? (
             <div className="divide-y divide-mist">
@@ -85,10 +110,10 @@ export function SearchBox({
                 </Link>
               ))}
               <Link
-                href={`/search?q=${encodeURIComponent(query)}`}
+                href={`/search?q=${encodeURIComponent(trimmedQuery)}`}
                 className="block bg-canvas px-4 py-3 text-sm font-medium text-pine transition hover:bg-mist/50"
               >
-                Alle Treffer für "{query}" ansehen
+                Alle Treffer für "{trimmedQuery}" ansehen
               </Link>
             </div>
           ) : (

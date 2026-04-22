@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import type { SearchEntry } from "@/lib/docs";
@@ -28,12 +28,7 @@ function scoreEntry(entry: SearchEntry, query: string) {
 
 export function SearchResults({ entries }: SearchResultsProps) {
   const searchParams = useSearchParams();
-  const initialQuery = searchParams.get("q") ?? "";
-  const [query, setQuery] = useState(initialQuery);
-
-  useEffect(() => {
-    setQuery(initialQuery);
-  }, [initialQuery]);
+  const query = searchParams.get("q") ?? "";
 
   const results = useMemo(() => {
     const normalized = query.trim();
@@ -63,18 +58,9 @@ export function SearchResults({ entries }: SearchResultsProps) {
         </p>
       </div>
 
-      <div className="mt-8 rounded-2xl border border-white/80 bg-white/85 p-4 shadow-sm">
-        <input
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          placeholder="z. B. MWST, Monatsablauf, bexio Import..."
-          className="w-full bg-transparent text-base text-ink outline-none placeholder:text-slate/70"
-        />
-      </div>
-
       {!query.trim() ? (
         <div className="mt-8 rounded-2xl border border-dashed border-mist bg-canvas/70 p-6 text-slate">
-          Gib einen Begriff ein, um passende Seiten anzuzeigen.
+          Nutze die Suche oben, um passende Seiten anzuzeigen.
         </div>
       ) : null}
 

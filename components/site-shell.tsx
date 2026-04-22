@@ -1,6 +1,6 @@
 "use client";
 
-import { BookText, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -40,10 +40,7 @@ export function SiteShell({
                 />
               </div>
             </Link>
-            <div className="mt-5">
-              <SearchBox entries={searchEntries} compact />
-            </div>
-            <div className="mt-6 overflow-y-auto pr-1">
+            <div className="mt-6 min-h-0 flex-1 overflow-y-auto pr-1">
               <SidebarNav navigation={navigation} currentPath={currentPath} />
             </div>
           </aside>
@@ -71,14 +68,17 @@ export function SiteShell({
         {isOpen ? (
           <div className="fixed inset-0 z-40 bg-ink/35 lg:hidden" onClick={() => setIsOpen(false)}>
             <aside
-              className="h-full w-[85vw] max-w-[320px] border-r border-white/70 bg-panel p-5 shadow-panel"
+              className="flex h-full w-[85vw] max-w-[320px] flex-col overflow-hidden border-r border-white/70 bg-panel p-5 shadow-panel"
               onClick={(event) => event.stopPropagation()}
             >
               <div className="flex items-center justify-between">
-                <Link href="/" onClick={() => setIsOpen(false)} className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#0b214c] text-white">
-                    <BookText className="h-5 w-5" />
-                  </div>
+                <Link href="/" onClick={() => setIsOpen(false)} className="rounded-2xl bg-[#0b214c] p-3">
+                  <Image
+                    src="/bp-logo-white.png"
+                    alt="Burkhart & Partners"
+                    width={110}
+                    height={32}
+                  />
                 </Link>
                 <button
                   type="button"
@@ -89,10 +89,7 @@ export function SiteShell({
                   <X className="h-5 w-5" />
                 </button>
               </div>
-              <div className="mt-5">
-                <SearchBox entries={searchEntries} compact />
-              </div>
-              <div className="mt-6 overflow-y-auto">
+              <div className="mt-6 min-h-0 flex-1 overflow-y-auto pr-1">
                 <SidebarNav
                   navigation={navigation}
                   currentPath={currentPath}
