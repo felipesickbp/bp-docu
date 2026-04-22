@@ -4,12 +4,14 @@ import Link from "next/link";
 import { CheckCircle2, Circle, ExternalLink, RotateCcw } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
-const CHECKLIST_STORAGE_KEY = "bp-docu-onboarding-checklist";
+const CHECKLIST_STORAGE_KEY = "bp-docu-onboarding-checklist-v2";
 
 const DEFAULT_ITEMS = [
   "Laptop, E-Mail und Kalenderzugang prüfen",
   "Teams, geteilte Ordner und Passwort-Tools einrichten",
-  "Vorstellung mit Teamlead und wichtigsten Ansprechpartnern machen",
+  "Einrichtung von E-Mail-Signatur",
+  "Scanner einrichten",
+  "Telefon weiterleiten",
   "Wichtige Prozesse im eigenen Bereich überblicken",
   "Erste Fragen und offene Punkte dokumentieren",
 ];
