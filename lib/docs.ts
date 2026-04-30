@@ -7,6 +7,7 @@ const CONTENT_ROOT = path.join(process.cwd(), "content");
 const SECTION_ORDER = [
   "Unternehmen",
   "Mandate & Kunden",
+  "Immobilien",
   "Buchhaltung",
   "Personaladministration / Payroll",
   "Steuern / MWST",
