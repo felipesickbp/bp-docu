@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { OnboardingChecklist, UsefulLinksSection } from "@/components/onboarding-checklist";
-import { JahresabschlussChecklist } from "@/components/jahresabschluss-checklist";
 import { SiteShell } from "@/components/site-shell";
 import { mdxComponents } from "@/components/mdx-components";
 import {
@@ -45,7 +44,6 @@ export default function DocPage({ params }: PageProps) {
 
   const isOnboardingPage = doc.href === "/unternehmen/onboarding/erste-woche";
   const isUsefulLinksPage = doc.href === "/unternehmen/onboarding/nuetzliche-links";
-  const isJahresabschlussPage = doc.href === "/buchhaltung/jahresabschluss";
 
   return (
     <SiteShell
@@ -61,8 +59,7 @@ export default function DocPage({ params }: PageProps) {
           <span className="text-sm text-slate">{doc.description}</span>
         </div>
         {isOnboardingPage ? <OnboardingChecklist /> : null}
-        {isJahresabschlussPage ? <JahresabschlussChecklist /> : null}
-        <article className={isOnboardingPage || isJahresabschlussPage ? "docs-prose mt-12" : "docs-prose"}>
+        <article className={isOnboardingPage ? "docs-prose mt-12" : "docs-prose"}>
           <MDXRemote
             source={doc.content}
             components={mdxComponents}
