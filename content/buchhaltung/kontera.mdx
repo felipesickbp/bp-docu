@@ -10,7 +10,7 @@ navOrder: 5
 Kontera verwenden wir für die Verarbeitung von Belegen. Ziel ist, dass Belege
 fachlich korrekt kontiert, sauber für den späteren Abgleich vorbereitet und nach bexio exportiert werden.
 
-Für die Belegverarbeitung brauchen benötigt es Zugriff auf Kontera sowie auf
+Für die Belegverarbeitung braucht es Zugriff auf Kontera sowie auf
 den entsprechenden Kunden in bexio. In bexio benötigt es insbesondere die
 Möglichkeit, im Journal nach früheren Buchungen zu suchen und bei Bedarf den
 Kontenplan anzuschauen.
@@ -36,7 +36,7 @@ kurz kontrolliert werden.
 
 ## 2. Belegart und Inhalt identifizieren
 
-Danach gilt es den Beleg zu öffnen und prüfen, um was für einen Beleg es sich handelt.
+Danach gilt es, den Beleg zu öffnen und zu prüfen, um was für einen Beleg es sich handelt.
 Kontera macht meistens bereits Vorschläge für die Kontierung. Diese Vorschläge
 sind häufig korrekt, müssen aber trotzdem immer geprüft werden.
 
@@ -61,29 +61,29 @@ Wenn nicht klar ist, wie der Beleg zu verbuchen ist, prüfen wir zuerst, wie
 
 ## 3. Passendes Konto finden
 
-Grundsätzlich orientieren wir uns an früheren Buchungen, damit die Buchhaltung
-konsistent bleibt. Wenn wir nicht sicher sind, welches Konto verwendet werden
-soll, gehen wir in bexio ins Journal und suchen nach ähnlichen Transaktionen.
+Grundsätzlich dienen frühere Buchungen als Orientierung, damit die Buchhaltung
+konsistent bleibt. Bei Unsicherheit, welches Konto verwendet werden soll, hilft
+ein Blick ins bexio-Journal mit der Suche nach ähnlichen Transaktionen.
 
 Der Weg in bexio ist:
 
 **Buchhaltung → Berichte → Journal**
 
-Dort kann man nach dem Lieferanten, dem Betrag oder einem Stichwort suchen. Wenn
-wir eine ähnliche frühere Buchung finden, verwenden wir in der Regel dasselbe
-Konto wie damals.
+Dort kann man nach dem Lieferanten, dem Betrag oder einem Stichwort suchen.
+Findet sich eine ähnliche frühere Buchung, wird in der Regel dasselbe Konto wie
+damals verwendet.
 
-Falls wir keine passende frühere Buchung finden, schauen wir zusätzlich im
-Kontenplan nach:
+Falls keine passende frühere Buchung vorhanden ist, lohnt sich zusätzlich ein
+Blick in den Kontenplan:
 
 **Einstellungen → Buchhaltung → Kontenplan Finanzbuchhaltung**
 
-Dort sehen wir, welche Konten grundsätzlich verfügbar sind. Wenn trotzdem nicht
-klar ist, was genau gekauft wurde oder welches Konto passt, kann man kurz im
-Internet nach dem Lieferanten oder Produkt suchen.
+Dort sind die grundsätzlich verfügbaren Konten ersichtlich. Wenn trotzdem nicht
+klar ist, was genau gekauft wurde oder welches Konto passt, kann eine kurze
+Internetsuche nach dem Lieferanten oder Produkt helfen.
 
-Wenn der Beleg weiterhin nicht eindeutig zugeordnet werden kann, buchen wir ihn
-vorläufig auf **1099**, damit er später nochmals geprüft werden kann.
+Wenn der Beleg weiterhin nicht eindeutig zugeordnet werden kann, wird er
+vorläufig auf **1099** gebucht, damit er später nochmals geprüft werden kann.
 
 ![Schritt 3: Konto über frühere Buchungen identifizieren](/docs/buchhaltung/kontera/schritt-3-konto-finden.png)
 
@@ -101,25 +101,24 @@ Beleg muss trotzdem genau angeschaut werden.
 Gerade bei Tankstellenbelegen ist Vorsicht nötig. Es kann zum Beispiel sein,
 dass nicht nur Treibstoff gekauft wurde, sondern zusätzlich noch etwas anderes.
 Dann reicht eine einzelne Buchungszeile nicht immer aus. In diesem Fall
-erstellen wir eine zweite Position. Je nach Inhalt kann diese zum Beispiel auf
-Verpflegungsspesen, Privatkonto oder KK Gesellschafter gebucht werden. Hier
-orientieren wir uns wieder daran, wie solche Fälle in der Vergangenheit beim
-Mandanten gebucht wurden.
+wird eine zweite Position erstellt. Je nach Inhalt kann diese zum Beispiel auf
+Verpflegungsspesen, Privatkonto oder KK Gesellschafter gebucht werden. Als
+Orientierung dienen auch hier frühere Buchungen beim gleichen Mandanten.
 
 ![Schritt 3.1: Fertig vorbereitete Debitkarten-Transaktion](/docs/buchhaltung/kontera/schritt-3-1-debitkarte-vorbereitet.png)
 
 ## 4. MWST prüfen
 
-Bei der MWST ist wichtig, dass der Code zum Beleg passt. Wir unterscheiden
-grundsätzlich zwischen Materialeinkauf beziehungsweise Aufwänden, die direkt
-für die Leistungserbringung notwendig sind, und normalen Aufwänden.
+Bei der MWST ist wichtig, dass der Code zum Beleg passt. Grundsätzlich wird
+zwischen Materialeinkauf beziehungsweise Aufwänden, die direkt für die
+Leistungserbringung notwendig sind, und normalen Aufwänden unterschieden.
 
 Bei Materialeinkauf oder direkt leistungsbezogenen Aufwänden, meistens im
 Bereich der 4000er-Konten, wird in der Regel **VM81** verwendet, sofern die
 MWST auf dem Beleg korrekt ausgewiesen ist.
 
-Bei normalen Aufwänden, meistens im Bereich der 6000er-Konten, verwenden wir in
-der Regel **VB81**, wenn der Beleg Schweizer MWST mit 8.1 % ausweist.
+Bei normalen Aufwänden, meistens im Bereich der 6000er-Konten, wird in der
+Regel **VB81** verwendet, wenn der Beleg Schweizer MWST mit 8.1 % ausweist.
 
 Es gibt auch Fälle mit reduziertem MWST-Satz, zum Beispiel **VB26**. Das kommt
 unter anderem bei Take-away oder bestimmten Lebensmitteln vor. Ob 2.6 % oder
@@ -127,12 +126,12 @@ unter anderem bei Take-away oder bestimmten Lebensmitteln vor. Ob 2.6 % oder
 Restaurantbelegen ist deshalb wichtig zu prüfen, ob die Konsumation vor Ort war
 oder ob es sich um Take-away handelt.
 
-Wenn auf einem Beleg mehrere MWST-Sätze vorhanden sind, müssen wir mehrere
-Positionen erstellen. Die Buchung soll den Beleg so abbilden, wie er
+Wenn auf einem Beleg mehrere MWST-Sätze vorhanden sind, müssen mehrere
+Positionen erstellt werden. Die Buchung soll den Beleg so abbilden, wie er
 tatsächlich ist.
 
 Bei Einkäufen in EUR oder allgemein bei Lieferanten ausserhalb der Schweiz
-verwenden wir normalerweise **V00**, weil dort in der Regel kein Schweizer
+wird normalerweise **V00** verwendet, weil dort in der Regel kein Schweizer
 Vorsteuerabzug geltend gemacht werden kann.
 
 ## 5. Zahlung und Abgleich auswählen
@@ -140,22 +139,22 @@ Vorsteuerabzug geltend gemacht werden kann.
 Im unteren Bereich wird festgelegt, wie der Beleg bezahlt wurde beziehungsweise
 wie er später abgeglichen werden soll.
 
-Wenn der Beleg mit Debitkarte bezahlt wurde, markieren wir ihn meistens als
-offen. Dann wird der Beleg später in bexio mit der passenden Bank- oder
+Wenn der Beleg mit Debitkarte bezahlt wurde, wird er meistens als offen
+markiert. Dann wird der Beleg später in bexio mit der passenden Bank- oder
 Kartentransaktion abgeglichen.
 
-Wenn der Beleg bar bezahlt wurde, wählen wir **Manuelle Zahlung**. Danach wählen
-wir als Zahlungskonto zum Beispiel **1001 - Kasse (Barzahlung)** aus. In diesem
+Wenn der Beleg bar bezahlt wurde, wird **Manuelle Zahlung** gewählt. Danach als
+Zahlungskonto zum Beispiel **1001 - Kasse (Barzahlung)** auswählen. In diesem
 Fall wird die Zahlung direkt über die Kasse verbucht.
 
-Nachdem Zahlungsart, Zahlungskonto und Datum geprüft wurden, speichern wir die
-Kontierung mit **Kontierung speichern**.
+Zum Abschluss Zahlungsart, Zahlungskonto und Datum prüfen und die Kontierung
+über **Kontierung speichern** abschliessen.
 
 ![Schritt 5: Barzahlung über Kasse verbuchen](/docs/buchhaltung/kontera/schritt-5-kasse-verbuchen.png)
 
 ## 6. Export nach bexio
 
-Wenn die Belege fertig kontiert sind, gehen wir in Kontera in den Bereich
+Wenn die Belege fertig kontiert sind, ist in Kontera der Bereich
 **Export ins bexio**. Dort werden die Belege angezeigt, die bereit für den
 Export sind.
 
