@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
+import lastModifiedByHref from "@/lib/last-modified.generated.json";
 
 const CONTENT_ROOT = path.join(process.cwd(), "content");
 
@@ -20,6 +21,7 @@ export type Doc = {
   description: string;
   section: string;
   navOrder: number;
+  lastModified: string;
   content: string;
   href: string;
 };
@@ -94,6 +96,7 @@ export function getAllDocs(): Doc[] {
         description: String(data.description ?? ""),
         section: String(data.section ?? "Allgemein"),
         navOrder: Number(data.navOrder ?? 999),
+        lastModified: String(lastModifiedByHref[slugToHref(slug) as keyof typeof lastModifiedByHref] ?? ""),
         content,
         href: slugToHref(slug),
       };
