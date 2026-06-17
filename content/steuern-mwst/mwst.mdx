@@ -21,7 +21,52 @@ passt. Sie ist vor allem in der laufenden Buchhaltung nützlich, zum Beispiel
 bei der [Kontera Belegverarbeitung](/buchhaltung/kontera), und dient später
 als Referenz bei der Vorbereitung oder Prüfung der MWST-Abrechnung.
 
-- [Übersicht Mwst-Codes V1 herunterladen](/downloads/mwst-codes-v1.xlsx)
+Die folgende Tabelle bezieht sich auf die Codierung von Kreditoren und
+Einkaufsbelegen.
+
+### Inlandsteuern: Investitionen & Betriebsaufwand (Inv/BA)
+
+| Code | Kategorie / Beschreibung | Satz | Wann benutzen? | Praxisbeispiel |
+| --- | --- | --- | --- | --- |
+| VB81 | Inv/BA (NS) - Normalsatz 8.1% | 8.10% | Für inländische Einkäufe von Betriebsaufwand, zum Beispiel IT, Beratung oder Miete, oder Investitionen wie Fahrzeuge und Maschinen, die ab dem 01.01.2024 zum neuen Normalsatz fakturiert wurden. Betrifft grundsätzlich Buchungskonten ab 5'000. | Kauf eines neuen Notebooks für das Büro im Jahr 2024 oder Treuhandrechnung für das Geschäftsjahr 2025. |
+| VB77 | Inv/BA (NS) - Normalsatz 7.7% | 7.70% | Für inländische Aufwände oder Investitionen zum alten Normalsatz bei Leistungserbringung bis 31.12.2023. Wichtig für verspätete Kreditorenrechnungen oder Periodenabgrenzungen. | Handwerkerrechnung für eine Büroreparatur, die im November 2023 ausgeführt, aber erst 2024 final abgerechnet wurde. |
+| VB37 | Inv/BA (SS) - Sondersatz Beherbergung | 3.70% | Für Hotelübernachtungen im Inland inklusive Frühstück, sofern als geschäftsmässiger Aufwand verbucht, bis 31.12.2023. | Hotelrechnung für eine Aussendienstmitarbeiterin anlässlich einer Kundenmesse in Zürich. |
+| VB26 | Inv/BA (RS) - Reduzierter Satz 2.6% | 2.60% | Für Investitionen oder Betriebsaufwand, zum Beispiel Lebensmittel. | Einkauf von Fachliteratur, Büchern oder Rechnung für ein Geschäftsessen beziehungsweise Restaurant/Take-Away. |
+| VB25 | Inv/BA (RS) - Reduzierter Satz 2.5% | 2.50% | Für Investitionen oder Betriebsaufwand zum alten reduzierten Steuersatz bei Leistungen bis 31.12.2023. | Abo-Rechnung für eine Fachzeitschrift für das Jahr 2023, die nachträglich verbucht wird. |
+| VB38 | Inv/BA (SS) - Sondersatz Beherbergung | 3.80% | Für Hotelübernachtungen im Inland inklusive Frühstück, sofern als geschäftsmässiger Aufwand verbucht, seit 01.01.2024. | Hotelrechnung für eine Aussendienstmitarbeiterin anlässlich einer Kundenmesse in Zürich. |
+
+### Inlandsteuern: Material & Dienstleistungen (Mat/DL)
+
+| Code | Kategorie / Beschreibung | Satz | Wann benutzen? | Praxisbeispiel |
+| --- | --- | --- | --- | --- |
+| VM81 | Mat/DL (NS) - Normalsatz 8.1% | 8.10% | Für den Einkauf von Waren und Dienstleistungen, die im Zusammenhang mit der erbrachten Dienstleistung oder dem Produkt stehen oder dafür verwendet werden. | Ein Produktionsbetrieb kauft Rohmaterialien oder Halbfabrikate von einem Schweizer Lieferanten ein, um diese weiterzuverarbeiten. |
+| VM77 | Mat/DL (NS) - Normalsatz 7.7% | 7.70% | Für Wareneinkäufe und Materialbeschaffungen, deren Leistung vor dem 31.12.2023 erbracht wurde. | Einkauf von Handelswaren, die im Dezember 2023 geliefert wurden, deren Rechnung aber erst im Januar 2024 eintrifft. |
+| VM26 | Mat/SV (RS) - Reduzierter Satz 2.6% | 2.60% | Für Material- und Wareneinkäufe, die im Zusammenhang mit der erbrachten Dienstleistung oder dem Produkt stehen, seit 01.01.2024. | Ein Gastronomiebetrieb kauft Frischgemüse und Fleisch bei einem Schweizer Grosshändler ein. |
+| VM25 | Mat/SV (NS) - Reduzierter Satz 2.5% | 2.50% | Für Material- und Wareneinkäufe des täglichen Bedarfs, die bis zum 31.12.2023 geliefert wurden. | Wareneinkauf von alkoholfreien Getränken für ein Restaurant vor dem Jahreswechsel 2023/2024. |
+
+### Bezugsteuer: Dienstleistungsimporte aus dem Ausland / Reverse Charge
+
+| Code | Kategorie / Beschreibung | Satz | Wann benutzen? | Praxisbeispiel |
+| --- | --- | --- | --- | --- |
+| BZB81 | Bezugsteuer Inv/BA Normalsatz 8.1% | 8.10% | Für im Ausland eingekaufte Dienstleistungen von Unternehmen ohne Schweizer MWST-Nummer, die als Betriebsaufwand gelten. Es erfolgt eine Deklaration der Bezugsteuer bei gleichzeitiger Vorsteuerkürzung, sofern voll vorsteuerabzugsberechtigt. | Rechnung von Google Irland für Google Workspace-Lizenzen oder Facebook-Werbeanzeigen ab 2024. |
+| BZM81 | Bezugsteuer Mat/DL Normalsatz 8.1% | 8.10% | Für ausländische Dienstleistungen, die im Zusammenhang mit der angebotenen Leistung oder dem Produkt stehen, zum Beispiel ausländische Subunternehmer. | Ein Schweizer Softwarehaus lässt Programmierleistungen durch einen Freelancer in Indien erbringen, die direkt für ein Kundenprojekt benötigt werden. |
+| BZM77 | Service import tax Mat/SV 7.7% | 7.70% | Für bezugsteuerpflichtige Dienstleistungen im Materialbereich, die bis zum 31.12.2023 erbracht wurden. | Ausländische Beratungsleistung für ein Produktentwicklungsprojekt im Herbst 2023. |
+| BZB77 | Service import tax Inv/BA 7.7% | 7.70% | Für bezugsteuerpflichtige IT- oder Lizenzaufwände, die dem alten Steuersatz von 7.7% unterliegen. | Nachträgliche Abrechnung einer ausländischen Agentur für eine Marketingkampagne im Jahr 2023. |
+
+### Zoll & Import (Warenimport)
+
+| Code | Kategorie / Beschreibung | Satz | Wann benutzen? | Praxisbeispiel |
+| --- | --- | --- | --- | --- |
+| ZOLLM | Import Mat/SV 100.00% | 100.00% | Zur Verbuchung der effektiv bezahlten Einfuhrsteuer (EZV) für Handelswaren und Rohmaterialien. | Verbuchung der Veranlagungsverfügung Zoll (eVV) für den Import von physischen Handelswaren aus Deutschland. |
+| ZOLLB | Import Inv/BA 100.00% | 100.00% | Zur Verbuchung der effektiv bezahlten Einfuhrsteuer (EZV) auf Investitionsgütern oder Betriebsaufwand. | Import einer Produktionsmaschine aus Italien; Verbuchung der durch Spediteur oder Zoll in Rechnung gestellten Einfuhrsteuer. |
+| VIM | Import 0.00% | 0.00% | Für Warenimporte, bei denen keine Einfuhrsteuer anfällt oder diese direkt über ein ZAZ-Konto abgewickelt wird und rein statistisch oder steuerbefreit erfasst wird. | Import von Gütern, die gemäss Zollgesetz von der Einfuhrsteuer befreit sind, zum Beispiel bestimmte Proben oder Rückwaren. |
+
+### Steuerbefreit / Ohne MWST-Pflicht
+
+| Code | Kategorie / Beschreibung | Satz | Wann benutzen? | Praxisbeispiel |
+| --- | --- | --- | --- | --- |
+| VSF | Free of pretax 0.00% | 0.00% | Für Ausgaben, die von der Steuer ausgenommen sind. | Zahlung von Versicherungsprämien, Bankgebühren, Porti der Post oder Mietzinse für Wohnräume. |
+| V00 | No VAT 0.00% | 0.00% | Für betriebliche Einkäufe im Inland von Kleinunternehmen, die nicht MWST-pflichtig sind, oder Einkäufe ohne MWST-Ausweis. | Kauf von Büromaterial bei einem lokalen Kleinverein oder Handwerker, der unter der Umsatzgrenze von CHF 100'000 liegt. |
 
 ## Typischer Ablauf
 
