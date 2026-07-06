@@ -1,0 +1,116 @@
+---
+title: Business Cockpit
+description: Monatliche Aktualisierung des Business Cockpits für White Wave.
+section: Buchhaltung
+navOrder: 7
+---
+
+# Business Cockpit monatlich aktualisieren
+
+[Business Cockpit öffnen](https://docs.google.com/spreadsheets/d/1vmE3oC2g_No8XQT2Gv_Pqt-IEDmMGxVm/edit?gid=805345375#gid=805345375)
+
+Das Business Cockpit wird bei der White Wave AG verwendet, um monatlich einen
+kompakten Überblick über Umsatz, Marge, Budget, geplante und effektive Verkäufe
+sowie Cash-Positionen zu erhalten. Die Auswertung zeigt die Entwicklung nach
+Kundensegmenten wie B2B und B2C, aber auch nach Regionen beziehungsweise
+Märkten wie CH, EU und Global. Ein guter Kontrollmechanismus ist immer der
+Vergleich mit dem Vormonat: Grössere Abweichungen sollten kurz geprüft und
+plausibilisiert werden.
+
+Für die monatliche Aktualisierung sind insbesondere folgende Bereiche relevant:
+Cash-Position, Zahlungen an Lieferanten, offene Debitoren nach CH, EU und
+Global, offene Kreditoren, insbesondere Montana und Sailing Composite, sowie
+Open Orders und Inventory, falls diese für die Planung relevant sind.
+
+## 1. Cash-Position aktualisieren
+
+![Cash-Position im Business Cockpit aktualisieren](/docs/buchhaltung/business-cockpit/cash-position.png)
+
+In Comatic unter **Hauptbuch → Konten drucken** die drei UBS-Bankkonten
+exportieren, entweder als PDF oder als Excel-Datei. Relevant sind die Konten
+**UBS CHF**, **UBS EUR** und **UBS USD**. Comatic rechnet die
+Fremdwährungsbestände bereits in CHF um.
+
+Festgehalten werden müssen insbesondere die Summe der Zahlungseingänge und die
+Summe der Zahlungsausgänge aller drei Konten. Diese Werte werden anschliessend
+im Business Cockpit eingetragen: Die Zahlungseingänge in Zeile 22 **In (CHF)**
+und die Zahlungsausgänge in Zeile 26 **Out total (CHF)**.
+
+Für **Out to Montana** im Bankkonto **UBS USD - 1027** einen Filter mit dem
+Suchbegriff **Montana** setzen. Dadurch ist ersichtlich, ob im entsprechenden
+Monat eine Zahlung an diesen Lieferanten erfolgt ist. Falls eine Zahlung
+vorhanden ist, wird diese im Cockpit separat unter **Out to Montana (CHF)**
+sowie unter **Paid to Montana (USD)** erfasst.
+
+Der **Beginning Cash** ist automatisch der **Cash end of month** des Vormonats.
+Hier sollte deshalb geprüft werden, ob der Anfangsbestand des aktuellen Monats
+mit dem Endbestand des Vormonats übereinstimmt.
+
+Die Logik im Cockpit ist:
+
+```text
+Net In/Out = In + Out total
+Cash end of month = Beginning of month + Net In/Out
+```
+
+Wichtig: Zahlungsausgänge werden im Cockpit als negative Werte geführt.
+
+## 2. Offene Debitoren erfassen
+
+![Offene Debitoren aus Comatic exportieren](/docs/buchhaltung/business-cockpit/offene-debitoren-export.png)
+
+Für die offenen Debitoren ebenfalls einen Export aus Comatic erstellen. Dabei
+den Stichtag auf das Ende der relevanten Periode setzen, zum Beispiel
+**30.06.2026**.
+
+In der PDF befindet sich auf der letzten Seite eine Übersicht nach Währung, die
+sogenannte Fälligkeitsübersicht. Diese Übersicht ist für das Business Cockpit
+relevant, weil daraus die offenen Debitoren nach CH, EU und Global übernommen
+werden können.
+
+![Open Debtors im Business Cockpit eintragen](/docs/buchhaltung/business-cockpit/open-debtors.png)
+
+Die Beträge werden im Business Cockpit im Bereich **Open Debtors** eingetragen.
+Relevant sind die Zeilen **CH (CHF)**, **EU (CHF)**, **Global (CHF)** und
+**Total (CHF)**. Falls Beträge in Fremdwährung ausgewiesen werden, ist der
+CHF-Wert aus Comatic zu verwenden oder entsprechend umzurechnen. Die Summe im
+Cockpit sollte mit der Totalzeile der Comatic-Auswertung übereinstimmen.
+
+## 3. Offene Kreditoren erfassen
+
+Im Business Cockpit wird anschliessend der Bereich **Open Creditors**
+aktualisiert. Die wichtigsten Kreditoren beziehungsweise Lieferanten sind hier
+**Sailing Composite** und **Montana**.
+
+In Comatic unter **Kreditoren → Kreditoren-Rechnung** im Textfeld **Name** nach
+**Montana** beziehungsweise **Sailing Composite** suchen. Die Summe der offenen
+Verbindlichkeiten wird anschliessend in das Business Cockpit übertragen.
+
+![Open Creditors im Business Cockpit aktualisieren](/docs/buchhaltung/business-cockpit/open-creditors.png)
+
+Die offenen Beträge werden in USD übernommen. Im Cockpit sind insbesondere die
+Zeilen **Montana (USD)**, **Sailing (USD) 30/70% FP** und **Total (USD)**
+relevant. Bei Sailing Composite ist darauf zu achten, dass nur die relevanten
+offenen Positionen für **30/70% FP** berücksichtigt werden.
+
+## 4. Garantieleistungen erfassen
+
+Die Garantieleistungen werden aus der Erfolgsrechnung entnommen. Dafür in
+Comatic unter **Hauptbuch → Gesamtrechnung** die Erfolgsrechnung für den
+jeweiligen Monat exportieren. Die Garantieleistungen sind dort unter den
+Erlösminderungen ausgewiesen.
+
+![Garantieleistungen in der Erfolgsrechnung prüfen](/docs/buchhaltung/business-cockpit/garantieleistungen-erfolgsrechnung.png)
+
+Alternativ kann das Konto **3908** direkt im Kontenplan beziehungsweise im
+Hauptbuch geprüft werden. Dafür unter **Hauptbuch → Konten** das Konto **3908**
+auswählen und den Zeitraum auf die entsprechende Periode setzen. So lassen sich
+die Garantieleistungen für den jeweiligen Monat direkt aus dem Konto ermitteln.
+
+![Konto 3908 für Garantieleistungen prüfen](/docs/buchhaltung/business-cockpit/garantieleistungen-konto-3908.png)
+
+## Verwandte Seiten
+
+- [White Wave](./white-wave)
+- [Monatsablauf](./monatsablauf)
+- [Buchhaltung / Überblick](./ueberblick)
