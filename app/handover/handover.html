@@ -1,0 +1,1648 @@
+<title>BexFLOW — Technische Übergabe</title>
+<style>
+  :root {
+    --bg: #EDEFF3;
+    --surface: #FFFFFF;
+    --surface-alt: #F4F6F9;
+    --ink: #0F172A;
+    --ink-strong: #05070C;
+    --ink-muted: #4B5563;
+    --ink-faint: #7A8290;
+    --rule: #D2D7DF;
+    --rule-strong: #B0B7C3;
+    --accent: #14315E;        /* B&P navy */
+    --accent-strong: #0A1F40;
+    --accent-soft: #D6E1F0;
+    --code-bg: #0A1F40;
+    --code-ink: #E1E7F0;
+    --code-dim: #93A3BC;
+    --shadow: 0 1px 0 rgba(15,23,42,0.04);
+    --measure: 68ch;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0A0E15;
+      --surface: #131923;
+      --surface-alt: #171E29;
+      --ink: #E7EAEE;
+      --ink-strong: #FFFFFF;
+      --ink-muted: #9AA3AF;
+      --ink-faint: #6B7382;
+      --rule: #262C36;
+      --rule-strong: #3A4150;
+      --accent: #7DA6E0;
+      --accent-strong: #A4C1EB;
+      --accent-soft: #1B2A44;
+      --code-bg: #05070C;
+      --code-ink: #DDE3EC;
+      --code-dim: #7A8290;
+      --shadow: 0 1px 0 rgba(0,0,0,0.4);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #EDEFF3; --surface: #FFFFFF; --surface-alt: #F4F6F9;
+    --ink: #0F172A; --ink-strong: #05070C; --ink-muted: #4B5563; --ink-faint: #7A8290;
+    --rule: #D2D7DF; --rule-strong: #B0B7C3;
+    --accent: #14315E; --accent-strong: #0A1F40; --accent-soft: #D6E1F0;
+    --code-bg: #0A1F40; --code-ink: #E1E7F0; --code-dim: #93A3BC;
+  }
+  :root[data-theme="dark"] {
+    --bg: #0A0E15; --surface: #131923; --surface-alt: #171E29;
+    --ink: #E7EAEE; --ink-strong: #FFFFFF; --ink-muted: #9AA3AF; --ink-faint: #6B7382;
+    --rule: #262C36; --rule-strong: #3A4150;
+    --accent: #7DA6E0; --accent-strong: #A4C1EB; --accent-soft: #1B2A44;
+    --code-bg: #05070C; --code-ink: #DDE3EC; --code-dim: #7A8290;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; hyphens: auto; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: var(--accent); color: #fff; }
+
+  .serif, h1, h2, h3, .section-num {
+    font-family: "Iowan Old Style", "Charter", "Palatino", "Georgia", "Times New Roman", serif;
+    hyphens: manual;
+  }
+  code, pre, .mono, kbd, samp {
+    font-family: ui-monospace, "SF Mono", "Menlo", "Consolas", "Roboto Mono", monospace;
+    hyphens: none;
+  }
+  table, .tabular { font-variant-numeric: tabular-nums; }
+
+  /* ---------------- Layout shell ---------------- */
+  .page {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 40px 32px 96px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 220px;
+    column-gap: 56px;
+  }
+  .content { min-width: 0; }
+  .content > * { max-width: var(--measure); }
+  .content pre, .content table, .content .pipeline, .content .card,
+  .content .table-wrap, .content .diagram, .content header, .content .factbar,
+  .content section, .content footer { max-width: none; }
+
+  .rail { position: relative; }
+  .rail nav {
+    position: sticky; top: 32px;
+    font-size: 12.5px;
+    line-height: 1.5;
+    padding-left: 16px;
+    border-left: 1px solid var(--rule);
+  }
+  .rail .eyebrow {
+    text-transform: uppercase;
+    font-size: 10.5px; letter-spacing: 1.6px;
+    color: var(--ink-faint);
+    margin-bottom: 10px;
+  }
+  .rail ol {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .rail a {
+    color: var(--ink-muted);
+    text-decoration: none;
+    display: flex; gap: 8px;
+    align-items: baseline;
+    padding: 2px 0;
+  }
+  .rail a:hover, .rail a:focus-visible { color: var(--accent); }
+  .rail a .n {
+    font-family: "Iowan Old Style", "Charter", "Georgia", serif;
+    color: var(--ink-faint);
+    font-variant-numeric: tabular-nums;
+    min-width: 22px;
+  }
+
+  header.masthead {
+    border-top: 3px solid var(--accent);
+    border-bottom: 1px solid var(--rule-strong);
+    padding: 22px 0 26px;
+    margin-bottom: 40px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: end;
+  }
+  header .kicker {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 11px; letter-spacing: 2.2px; text-transform: uppercase;
+    color: var(--ink-muted); margin-bottom: 14px;
+  }
+  header .kicker .dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+    display: inline-block;
+  }
+  header h1.title {
+    font-size: clamp(38px, 6vw, 62px);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    font-weight: 700;
+    margin: 0 0 14px 0;
+    color: var(--ink-strong);
+    text-wrap: balance;
+  }
+  header h1.title em {
+    font-style: italic; font-weight: 400;
+    color: var(--accent);
+  }
+  header .subtitle {
+    font-size: 18px;
+    line-height: 1.45;
+    color: var(--ink-muted);
+    max-width: 46ch;
+    text-wrap: pretty;
+  }
+  header .colophon {
+    font-size: 11.5px;
+    color: var(--ink-muted);
+    line-height: 1.7;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  header .colophon b { color: var(--ink); font-weight: 600; }
+  header .colophon .row { white-space: nowrap; }
+
+  .factbar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    padding: 18px 0 22px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 48px;
+  }
+  .factbar .fact { min-width: 0; }
+  .factbar .fact .lbl {
+    font-size: 10.5px; letter-spacing: 1.4px; text-transform: uppercase;
+    color: var(--ink-faint); margin-bottom: 4px;
+  }
+  .factbar .fact .val {
+    font-family: "Iowan Old Style", "Charter", "Georgia", serif;
+    font-size: 17px; color: var(--ink-strong);
+  }
+  .factbar .fact .val code {
+    font-size: 13px; background: transparent; border: 0; padding: 0;
+    color: var(--ink-strong);
+  }
+
+  section.chapter { margin: 88px 0 0; scroll-margin-top: 24px; }
+  section.chapter:first-of-type { margin-top: 0; }
+  .chapter > .head {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 22px;
+    align-items: baseline;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 28px;
+  }
+  .section-num {
+    font-size: 46px;
+    color: var(--accent);
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    font-style: italic;
+  }
+  .head .titles h2 {
+    font-size: 30px;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin: 0 0 4px 0;
+    color: var(--ink-strong);
+    font-weight: 700;
+    text-wrap: balance;
+  }
+  .head .titles .eyebrow {
+    text-transform: uppercase;
+    font-size: 10.5px; letter-spacing: 2px;
+    color: var(--ink-faint);
+    margin-bottom: 6px;
+  }
+
+  .chapter .content-inner > * { max-width: var(--measure); }
+  .chapter .content-inner pre,
+  .chapter .content-inner table,
+  .chapter .content-inner .pipeline,
+  .chapter .content-inner .table-wrap,
+  .chapter .content-inner .card,
+  .chapter .content-inner .diagram { max-width: none; }
+
+  h3 {
+    font-size: 20px;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+    margin: 44px 0 12px;
+    color: var(--ink-strong);
+    font-weight: 700;
+  }
+  h4 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    color: var(--ink-muted);
+    margin: 28px 0 10px;
+    font-weight: 700;
+  }
+  p { margin: 12px 0; }
+  a { color: var(--accent); }
+  a:hover { text-decoration-thickness: 2px; }
+
+  ul, ol { margin: 12px 0; padding-left: 22px; }
+  li { margin: 4px 0; }
+  ul li::marker { color: var(--accent); }
+  ol li::marker { color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+
+  p code, li code, td code {
+    background: var(--surface-alt);
+    color: var(--ink-strong);
+    padding: 1px 5px;
+    border-radius: 2px;
+    font-size: 0.88em;
+    border: 1px solid var(--rule);
+  }
+
+  pre {
+    background: var(--code-bg);
+    color: var(--code-ink);
+    padding: 18px 20px;
+    border-radius: 3px;
+    font-size: 12.5px;
+    line-height: 1.55;
+    overflow-x: auto;
+    margin: 18px 0;
+    border: 1px solid transparent;
+    white-space: pre;
+  }
+  pre code { background: transparent; border: 0; padding: 0; color: inherit; font-size: inherit; }
+  pre .c { color: var(--code-dim); }
+
+  .call {
+    border-left: 2px solid var(--accent);
+    padding: 12px 16px;
+    background: var(--surface);
+    margin: 20px 0;
+    font-size: 15px;
+    box-shadow: var(--shadow);
+  }
+  .call.warn { border-left-color: #B45309; }
+  .call.warn::before { content: "Achtung"; }
+  .call.note { border-left-color: var(--ink); }
+  .call.note::before { content: "Hinweis"; }
+  .call.hi { border-left-color: var(--accent); }
+  .call.hi::before { content: "Kernaussage"; }
+  .call::before {
+    display: block;
+    text-transform: uppercase; letter-spacing: 1.8px;
+    font-size: 10.5px; font-weight: 700; color: var(--ink-faint);
+    margin-bottom: 6px;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--rule);
+    background: var(--surface);
+    margin: 18px 0;
+  }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--rule);
+    text-align: left;
+    vertical-align: top;
+    color: var(--ink);
+  }
+  thead th {
+    background: var(--surface-alt);
+    color: var(--ink-strong);
+    font-weight: 700;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    border-bottom: 1.5px solid var(--rule-strong);
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  td.mono, table.kv td:first-child {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12.5px; color: var(--ink-strong);
+  }
+  table.kv td:first-child { width: 42%; }
+
+  .pipeline {
+    counter-reset: step;
+    margin: 20px 0 26px;
+    border: 1px solid var(--rule);
+    background: var(--surface);
+    padding: 8px 20px;
+  }
+  .pipeline .step {
+    counter-increment: step;
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 18px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .pipeline .step:last-child { border-bottom: none; }
+  .pipeline .step::before {
+    content: counter(step, decimal-leading-zero);
+    font-family: "Iowan Old Style", "Charter", "Georgia", serif;
+    font-style: italic;
+    color: var(--accent);
+    font-size: 22px;
+    line-height: 1;
+    padding-top: 2px;
+    font-variant-numeric: tabular-nums;
+  }
+  .pipeline .step b {
+    display: block;
+    font-size: 15px;
+    color: var(--ink-strong);
+    margin-bottom: 2px;
+  }
+  .pipeline .step .desc { color: var(--ink-muted); font-size: 14px; }
+
+  .badge {
+    display: inline-block;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 10.5px;
+    padding: 1px 6px;
+    border: 1px solid var(--rule-strong);
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 2px;
+    margin-right: 6px;
+  }
+
+  .diagram {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    padding: 22px 20px;
+    margin: 18px 0;
+    overflow-x: auto;
+  }
+  .diagram pre {
+    background: transparent;
+    color: var(--ink);
+    padding: 0; margin: 0;
+    font-size: 12px;
+    line-height: 1.4;
+    border: 0;
+    white-space: pre;
+  }
+
+  footer.foot {
+    margin-top: 96px;
+    padding-top: 20px;
+    border-top: 3px solid var(--accent);
+    display: flex; justify-content: space-between;
+    font-size: 12px; color: var(--ink-muted);
+    text-transform: uppercase; letter-spacing: 1.4px;
+  }
+
+  @media (max-width: 960px) {
+    .page { grid-template-columns: 1fr; padding: 24px 20px 64px; }
+    .rail { display: none; }
+    .factbar { grid-template-columns: repeat(2, 1fr); }
+    header.masthead { grid-template-columns: 1fr; }
+    header .colophon { text-align: left; }
+    .head { grid-template-columns: 1fr !important; }
+    .section-num { font-size: 34px; }
+  }
+  @media (max-width: 520px) {
+    .factbar { grid-template-columns: 1fr; }
+    header h1.title { font-size: 34px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  /* Print / PDF */
+  @media print {
+    :root { --bg: #FFFFFF; --surface: #FFFFFF; --surface-alt: #F5F6F9; }
+    body { font-size: 10.5pt; }
+    .rail { display: none; }
+    .page { display: block; padding: 0; max-width: none; }
+    section.chapter { page-break-before: always; margin-top: 0; }
+    section.chapter:first-of-type { page-break-before: avoid; }
+    pre, .table-wrap, .pipeline, .diagram { page-break-inside: avoid; }
+    h2, h3, h4 { page-break-after: avoid; }
+    header.masthead { border-top-width: 4pt; }
+    a { color: var(--accent); text-decoration: none; }
+  }
+</style>
+
+<div class="page">
+<div class="content">
+
+<header class="masthead">
+  <div class="lockup">
+    <div class="kicker"><span class="dot"></span> Technische Übergabe · Version 1.0 · Stand 12.07.2026</div>
+    <h1 class="title">BexFLOW <em>— technische Übergabe</em></h1>
+    <p class="subtitle">
+      Eine Schweizer Pipeline von der Bankauszugs-Datei bis zur gebuchten
+      Sammelbuchung in bexio. Dieses Dokument richtet sich an die
+      Entwicklerin oder den Entwickler, die den Code übernimmt: vom
+      Produktverständnis bis zum Live-Betrieb.
+    </p>
+  </div>
+  <div class="colophon">
+    <div class="row"><b>Codebasis</b> <code>/opt/bp-pilot/app</code></div>
+    <div class="row"><b>Interner Codename</b> BP Pilot</div>
+    <div class="row"><b>Sprache</b> Python 3.11 · TypeScript</div>
+    <div class="row"><b>Runtime</b> Docker Compose · Ubuntu</div>
+    <div class="row"><b>Live unter</b> app.bexflow.ch · app.bp-pilot.ch</div>
+  </div>
+</header>
+
+<div class="factbar">
+  <div class="fact"><div class="lbl">Backend</div><div class="val">FastAPI · <code>~8 kLoC</code> · 65 Routen</div></div>
+  <div class="fact"><div class="lbl">Frontend</div><div class="val">Next.js 14 · React 18</div></div>
+  <div class="fact"><div class="lbl">Datenhaltung</div><div class="val">PostgreSQL 16 + MinIO</div></div>
+  <div class="fact"><div class="lbl">KI-Anbieter</div><div class="val">Infomaniak (OpenAI-kompatibel)</div></div>
+</div>
+
+<!-- ============================================================ -->
+<section class="chapter" id="s01">
+  <div class="head">
+    <div class="section-num">§01</div>
+    <div class="titles">
+      <div class="eyebrow">Übersicht</div>
+      <h2>Was BexFLOW leistet</h2>
+    </div>
+  </div>
+  <div class="content-inner">
+
+<p>BexFLOW (intern <i>BP Pilot</i>) ist eine Schweizer B2B-Webanwendung, die
+sich zwischen die Bankauszüge eines Unternehmens und dessen Buchhaltungs­system
+<a href="https://bexio.com">bexio</a> stellt. Sie strukturiert und
+beschleunigt die Erfassung am Monatsende und verhindert Doppelbuchungen — die
+buchhalterische Entscheidung pro Zeile trifft weiterhin die Nutzerin.</p>
+
+<p>Zielnutzer sind kleine und mittlere Schweizer Unternehmen, Treuhänderinnen
+und interne Buchhalter. Sie melden sich an, verbinden bexio einmalig per OAuth
+und laden anschliessend das CSV oder XLSX hoch, das sie bei ihrer Bank
+exportiert haben (UBS, PostFinance, Raiffeisen, Revolut usw.).</p>
+
+<h3>Was die Nutzerin sieht</h3>
+<ol>
+  <li><b>Upload.</b> Bankauszug per Drag-and-Drop in den Browser ziehen.</li>
+  <li><b>Vorschau.</b> Die App erkennt Spalten (Datum, Betrag, Beschreibung, IBAN) automatisch und lässt das Mapping direkt in der Tabelle korrigieren.</li>
+  <li><b>Bereinigung.</b> Datumsformate werden normalisiert (Schweizer <code>tt.mm.jjjj</code> → ISO), Vorzeichen korrigiert, Abkürzungen aufgelöst.</li>
+  <li><b>Kontieren.</b> Die Nutzerin kontiert Zeile für Zeile über eine editierbare Tabelle. Wo aus mandanten­eigenen Regeln oder aus früheren Buchungen ein Soll-/Haben-Konto abgeleitet werden kann, wird es vorbelegt und markiert; alles andere wird manuell erfasst oder korrigiert. Der automatische Vorschlags-Layer ist heute begrenzt (§09) und wird schrittweise ausgebaut.</li>
+  <li><b>Buchen.</b> Ein Klick schreibt jede Buchung als <i>manual entry</i> via bexio-REST-API.</li>
+</ol>
+
+<div class="call hi">
+Der Kern von BexFLOW ist der strukturierte Ablauf: Datei einlesen, Spalten
+sauber mappen, Zeilen bereinigen und in einer editierbaren Tabelle in
+Sammelbuchungen überführen — mit Idempotenz-Schutz gegen Doppelbuchungen und
+einer Import-Historie. Vorschläge zur Kontierung (Regeln, Historie, teilweise
+KI) sind ein optionaler Hilfs-Layer, der aktuell begrenzt ist und
+schrittweise ausgebaut wird. Die buchhalterische Entscheidung trifft die
+Nutzerin.
+</div>
+
+<h3>Geschäftsmodell</h3>
+<p>Abgerechnet wird per <b>Token</b>: eine gebuchte Transaktion entspricht
+einem Token. Neue Nutzer erhalten 50 Test-Token und bis 09.08.2026 zusätzlich
+100 Bonus-Credits. Anschliessend werden Starter-, Pro- oder Business-Pläne
+per Stripe Checkout gebucht (monatlich oder jährlich). Duplikate, die vom
+Idempotenz-Ledger abgefangen werden, kosten <b>nie</b> Token.</p>
+
+<h3>Was BexFLOW nicht ist</h3>
+<ul>
+  <li>Keine vollständige Buchhaltung — bexio bleibt das führende System.</li>
+  <li>Keine Belegerkennung oder OCR — Eingabe ist immer ein Bankauszug.</li>
+  <li>Kein QR-Rechnungs-Generator und keine Zahlungsauslösung.</li>
+</ul>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="chapter" id="s02">
+  <div class="head">
+    <div class="section-num">§02</div>
+    <div class="titles">
+      <div class="eyebrow">Nutzerpfad</div>
+      <h2>Der Ablauf, vom Login bis zur Buchung</h2>
+    </div>
+  </div>
+  <div class="content-inner">
+
+<p>Jeder Schritt entspricht einer Seite unter <code>frontend/app/</code>:</p>
+
+<div class="pipeline">
+  <div class="step"><span><b>/login</b><span class="desc">E-Mail + Passwort + 6-stelliger E-Mail-Code (OTP). Session-Cookie <code>bp_auth_sid</code>.</span></span></div>
+  <div class="step"><span><b>/settings</b><span class="desc">Nutzerin verbindet bexio via OAuth 2.0. Zusätzliches Cookie <code>bp_bexio_sid</code>, an den Auth-User gebunden.</span></span></div>
+  <div class="step"><span><b>/upload</b><span class="desc">Datei → <code>POST /api/imports/analyze-candidates</code>. Backend parst mit pandas + openpyxl und schlägt Mappings vor.</span></span></div>
+  <div class="step"><span><b>/preview</b><span class="desc">Nutzerin bestätigt das Spalten-Mapping. <code>/api/ai/import/parse</code> und <code>/api/ai/import/assist?stage=preview</code> laufen.</span></span></div>
+  <div class="step"><span><b>/cleanup</b><span class="desc">Bereinigungslauf schlägt Korrekturen vor; einzeln annehmen oder verwerfen.</span></span></div>
+  <div class="step"><span><b>/spreadsheet</b><span class="desc">Die editierbare Vollansicht. <code>/api/ai/import/assist?stage=spreadsheet</code> ruft die komplette 8-Schichten-Pipeline (§09) auf und liefert Soll/Haben-Vorschläge mit Konfidenz und Begründung.</span></span></div>
+  <div class="step"><span><b>/direct-import</b><span class="desc">Buchen in bexio. <code>/api/bexio/direct-import/post</code> legt pro Zeile ein <code>manual_entry</code> an, im asynchronen Hintergrund-Thread.</span></span></div>
+  <div class="step"><span><b>/history · /massenmutationen · /bexio-export</b><span class="desc">Frühere Importe, Massenbearbeitung/-löschung gebuchter Einträge, Jahres-Journal-Export.</span></span></div>
+</div>
+
+<h3>Die kritische Garantie: Idempotenz</h3>
+<p>Jede Buchung, die bexio erreicht, wird vor dem API-Aufruf mit einem
+Fingerabdruck versehen:</p>
+<pre><span class="c"># app/services/posted_entries_store.py</span>
+sha256(tenant + date + |amount| + debit + credit + currency + normalized_text)</pre>
+<p>Bei jedem Wiederholungsversuch — Doppelklick, Neustart eines Worker-Threads,
+Netzwerk-Aussetzer — passt der Fingerabdruck auf eine bestehende Zeile in
+<code>posted_entries</code>. Der zweite Versuch liefert dann Status
+<code>DUPLICATE</code>, statt eine doppelte Buchung im echten Ledger anzulegen.
+Duplikate werden nicht abgerechnet.</p>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="chapter" id="s03">
+  <div class="head">
+    <div class="section-num">§03</div>
+    <div class="titles">
+      <div class="eyebrow">Architektur</div>
+      <h2>Wer mit wem spricht</h2>
+    </div>
+  </div>
+  <div class="content-inner">
+
+<div class="diagram">
+<pre>                                Internet (HTTPS)
+                                        │
+                        ┌───────────────▼───────────────┐
+                        │  Caddy 2   ·  Reverse Proxy   │  infra/Caddyfile
+                        │  TLS · gzip · CSP · HSTS      │
+                        └──┬──────────────┬───────────┬─┘
+                /api/*     │              │           │  alles andere
+                           ▼              ▼           ▼
+                    ┌───────────┐   ┌──────┐   ┌──────────┐
+                    │ backend   │   │ docs │   │ frontend │
+                    │ FastAPI   │   │ Next │   │ Next 14  │
+                    │ :8000     │   │ :3000│   │ :3000    │
+                    └─┬─────┬───┘   └──────┘   └──────────┘
+                      │     │
+              ┌───────┘     └────────┐
+              ▼                      ▼
+       ┌───────────┐            ┌──────────┐
+       │ Postgres  │            │  MinIO   │
+       │  copilot  │            │  :9000   │
+       └───────────┘            └──────────┘
+
+  extern:   bexio API · Infomaniak AI · Stripe · SMTP · BAZG-Devisenkurse</pre>
+</div>
+
+<h3>Services und ihre Aufgaben</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Service</th><th>Rolle</th><th>Image / Build</th></tr></thead>
+  <tbody>
+    <tr><td><b>caddy</b></td><td>TLS-Terminierung, gzip, Security-Header, pfadbasiertes Routing (<code>/api/*</code> → Backend, sonst → Frontend). Beherrscht mehrere Hostnamen gleichzeitig.</td><td><code>caddy:2</code></td></tr>
+    <tr><td><b>frontend</b></td><td>Next.js 14 App-Router-UI. Überwiegend clientseitig; React Query spricht <code>/api</code> an.</td><td>Build aus <code>frontend/</code></td></tr>
+    <tr><td><b>docs</b></td><td>Separate statische Next.js-Site unter <code>wiki.burkhart-partners.ch</code>.</td><td>Build aus <code>bp-docu/</code></td></tr>
+    <tr><td><b>backend</b></td><td>FastAPI-Monolith. Eine Datei: <code>backend/main.py</code>. Läuft mit uvicorn im <b>Single-Worker-Modus</b>.</td><td>Build aus <code>backend/</code></td></tr>
+    <tr><td><b>postgres</b></td><td>Sämtlicher State: Auth, Sessions, verschlüsselte OAuth-Tokens, Import-Historie, Embedding-Cache, Billing, KI-Audit.</td><td><code>postgres:16</code></td></tr>
+    <tr><td><b>minio</b></td><td>S3-kompatibel. Aktuell <b>bereitgestellt, aber nicht genutzt</b> — reserviert für spätere Blob-Ablage.</td><td><code>minio/minio</code></td></tr>
+    <tr><td><b>tasktrack</b></td><td>Interne, nicht zu BexFLOW gehörende Aufgabenverwaltung, die denselben Caddy nutzt. Kann ignoriert werden.</td><td>Build aus <code>/home/ubuntu/TaskTrack</code></td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="call note">
+Das Backend ist bewusst ein Ein-Datei-Monolith. Ein Split von
+<code>main.py</code> in <code>APIRouter</code>-Module ist als Folgearbeit
+erfasst, wurde aber während des Live-Betriebs mit realen Mandanten als zu
+riskant eingestuft. Kein Bug, sondern eine bewusste Entscheidung.
+</div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="chapter" id="s04">
+  <div class="head">
+    <div class="section-num">§04</div>
+    <div class="titles">
+      <div class="eyebrow">Repository</div>
+      <h2>Wo was liegt</h2>
+    </div>
+  </div>
+  <div class="content-inner">
+
+<pre><span class="c"># /opt/bp-pilot/app/</span>
+├── AGENTS.md                # AI-Agent-Kontext / "Soul File"
+├── backend/
+│   ├── Dockerfile
+│   ├── requirements.txt     # 12 gepinnte Abhängigkeiten, Python 3.11
+│   ├── main.py              # 7'988 Zeilen · 65 HTTP-Routen · die App
+│   ├── app/
+│   │   ├── db.py            # SQLAlchemy-Engine (Postgres oder SQLite-Fallback)
+│   │   ├── models/canonical.py       # kanonische Pydantic-Transaktionstypen
+│   │   ├── services/                 # sauber getrennte Businesslogik
+│   │   │   ├── ai_assist.py          # 920  Mapping/Cleanup/Regel-Matcher
+│   │   │   ├── ai_engine.py          # 255  lexikalische Historien-Suche
+│   │   │   ├── ai_semantic.py        # 210  Embedding-basierte Suche
+│   │   │   ├── ai_booking.py         # 284  LLM-Buchungs-Vorschläge
+│   │   │   ├── ai_parsing.py         # 251  LLM-gestütztes Spalten-Parsing
+│   │   │   ├── ai_provider.py        # 462  Infomaniak-HTTP-Client
+│   │   │   ├── ai_types.py           #      geteilte Pydantic-Typen
+│   │   │   ├── ai_audit_store.py     #      Entscheidungen → ai_audit_events
+│   │   │   ├── seed_knowledge.py     #      Kaltstart (Schweizer KMU-Chart)
+│   │   │   ├── posted_entries_store.py #    Idempotenz-Ledger
+│   │   │   ├── posting_rules_store.py  #    Mandanten-Regeln Keyword→Konto
+│   │   │   ├── rule_mining.py        #      Regel-Kandidaten aus Historie
+│   │   │   ├── confidence_calibration.py  # Beta-Binomial-Kalibrierung
+│   │   │   ├── history_store.py      #      import_history-Tabelle
+│   │   │   ├── embedding_store.py    #      Vektor-Cache
+│   │   │   ├── kv_store.py           #      DB-basiertes Dict für State
+│   │   │   ├── auth_store.py         #      Users / Sessions / OTP / Audit
+│   │   │   ├── billing_store.py      #      Token-Wallet / Stripe-Dedup
+│   │   │   ├── crypto.py             #      Fernet-Verschlüsselung
+│   │   │   ├── bexio_import.py       #      CLI-Tool, nicht Hotpath
+│   │   │   ├── apply_mapping.py      # 580  deterministische Transformationen
+│   │   │   └── support_store.py      #      In-App-Support-Tickets
+│   │   ├── cli/
+│   │   │   ├── ingest_training_data.py  # erzeugt seed_knowledge.json
+│   │   │   ├── evaluate_ai_booking.py   # Evaluations-Harness
+│   │   │   └── prepare_bexio_import.py  # eigenständiges Dry-Run-CLI
+│   │   └── data/
+│   │       ├── seed_knowledge.json    # 93 Keyword→Konto-Zuordnungen, offline extrahiert
+│   │       └── standard_booking_rules.json
+│   └── tests/               # 27 pytest-Dateien
+├── frontend/
+│   ├── Dockerfile
+│   ├── package.json         # Next 14 · React 18 · React Query · xlsx
+│   ├── middleware.ts        # serverseitige Auth-Sperre privater Routen
+│   ├── app/                 # Next.js App Router
+│   │   ├── layout.tsx  providers.tsx
+│   │   ├── upload/ preview/ cleanup/ spreadsheet/ direct-import/
+│   │   ├── massenmutationen/ bexio-export/ history/ posting-rules/
+│   │   ├── billing/ settings/ support/ landing/
+│   │   ├── login/ complete/ dashboard/ clients/
+│   │   ├── components/      # shell · ui · stepper · billing-panel · language-switcher
+│   │   └── lib/             # csrf.ts · i18n.ts
+│   └── tests/               # Playwright-Smoke-Tests
+├── bp-docu/                 # separate Marketing-/Hilfe-Site (Next.js Static Export)
+├── infra/
+│   ├── docker-compose.prod.yml
+│   └── Caddyfile            # Multi-Host-Proxy + Security-Header
+├── training_data/           # Ausgangsdateien für seed_knowledge.json (offline)
+└── fixtures/bank-statements/ # Testdaten</pre>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="chapter" id="s05">
+  <div class="head">
+    <div class="section-num">§05</div>
+    <div class="titles">
+      <div class="eyebrow">Backend</div>
+      <h2>Der FastAPI-Monolith</h2>
+    </div>
+  </div>
+  <div class="content-inner">
+
+<h3>Einstiegspunkt</h3>
+<p><code>backend/main.py</code> definiert eine einzige
+<code>app = FastAPI(lifespan=…)</code>. Der Lifespan startet
+<code>_run_startup_tasks()</code>: (a) harte Prüfung, dass
+<code>AUTH_CODE_PEPPER</code> ein echtes Produktions-Secret ist; (b) alle
+Schemata initialisieren; (c) alte E-Mail-Challenges und Audit-Zeilen
+aufräumen; (d) laut warnen, wenn <code>APP_ENCRYPTION_KEY</code> fehlt.</p>
+
+<h3>Routen-Übersicht — die 65 Endpunkte, gruppiert</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Präfix</th><th>Zweck</th></tr></thead>
+  <tbody>
+    <tr><td><code>/health · /clients</code></td><td>Liveness + Demo-Mandant</td></tr>
+    <tr><td><code>/auth/*</code></td><td>Registrierung, Login, OTP, Verifikation, Passwort-Reset, Session, Logout, Konto löschen</td></tr>
+    <tr><td><code>/account/*</code></td><td>Profil, Mitglieder, Einladungen</td></tr>
+    <tr><td><code>/marketing/email-list</code></td><td>Newsletter-Anmeldung von der Landingpage</td></tr>
+    <tr><td><code>/support/tickets</code></td><td>In-App-Support-Tickets (per E-Mail an <code>info@bexflow.ch</code>)</td></tr>
+    <tr><td><code>/billing/*</code></td><td>Stripe-Übersicht, Checkout-Session, Customer-Portal</td></tr>
+    <tr><td><code>/stripe/webhook</code></td><td>HMAC-verifizierter Webhook, Deduplizierung über <code>billing_store</code></td></tr>
+    <tr><td><code>/bexio/session · /connect · /callback</code></td><td>OAuth-2.0-Handshake</td></tr>
+    <tr><td><code>/bexio/accounts · /currencies · /taxes · /context</code></td><td>Read-Through-Cache der bexio-Metadaten</td></tr>
+    <tr><td><code>/bexio/manual-entries/search · /bulk-mutate · /bulk-delete</code></td><td>Lesen und Massenbearbeitung gebuchter Einträge</td></tr>
+    <tr><td><code>/bexio/direct-import/post · /jobs/:id · /duplicates/clear</code></td><td>Neue Buchungen anlegen + Duplikat-Verwaltung</td></tr>
+    <tr><td><code>/bexio/export-package · /jobs/:id · /download</code></td><td>Jahres-Journal-Exports</td></tr>
+    <tr><td><code>/imports/analyze-candidates · /history</code></td><td>Upload-Analyse + Import-Historie</td></tr>
+    <tr><td><code>/ai/models · /health · /import/parse · /import/assist · /booking/suggest · /calibration</code></td><td>Die gesamte KI-Oberfläche</td></tr>
+    <tr><td><code>/posting-rules · /suggestions · /packages/:id</code></td><td>Manuelle und gemin­te Regeln</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Übergreifende Middleware</h3>
+<ul>
+  <li><b>Auth</b>: <code>_get_auth_session_or_401()</code> prüft <code>bp_auth_sid</code> gegen <code>auth_sessions</code> und aktualisiert <code>last_seen_at</code>.</li>
+  <li><b>CSRF</b>: <code>_require_csrf()</code> vergleicht Cookie <code>bp_csrf_token</code> mit Header <code>X-CSRF-Token</code> bei jedem State-verändernden Aufruf.</li>
+  <li><b>Rate-Limits</b>: DB-basiert (<code>auth_rate_hits</code>), mit In-Memory-Fallback. Buckets pro IP oder pro E-Mail je nach Endpunkt.</li>
+  <li><b>Bexio-Sperre</b>: <code>_get_bexio_session_or_401()</code> auf jeder Route, die bexio anspricht.</li>
+  <li><b>Billing-Sperre</b>: <code>_raise_if_import_tokens_insufficient()</code> blockiert Buchungen bei leerem Wallet.</li>
+</ul>
+
+<h3>Token-Refresh und Verschlüsselung</h3>
+<p>bexio-Access-Tokens leben 60 Minuten, Refresh-Tokens ~30 Tage.
+<code>_get_valid_access_token()</code> erneuert transparent kurz vor Ablauf.
+Beide Tokens liegen in <code>_bexio_sessions</code>, einem
+<code>KvDict</code> über <code>app_kv</code> in Postgres. Werte werden mit
+Fernet verschlüsselt, sofern <code>APP_ENCRYPTION_KEY</code> gesetzt ist; das
+<code>enc:v1:</code>-Präfix in <code>crypto.py</code> erlaubt Rotation und
+Koexistenz mit älteren Klartext-Zeilen.</p>
+
+<h3>Hintergrundjobs</h3>
+<p>Kein Celery — schlicht <code>threading.Thread(daemon=True)</code>. Drei
+lange laufende Jobtypen:</p>
+<ul>
+  <li><b>Direct-Import-Posting</b> — läuft Zeile für Zeile gegen <code>/manual_entries</code>. Fortschritt (<code>processed / ok_count / error_count / dry_run_count</code>) wird nach jeder Zeile in den Namespace <code>direct_import_job</code> von <code>KvDict</code> geschrieben. So sieht das Frontend beim Polling einen Live-Fortschrittsbalken und der Zustand überlebt Container-Neustarts.</li>
+  <li><b>Manual-Entry-Massenmutation</b> — Spiegelbild-Job für Bearbeiten/Löschen bereits gebuchter Einträge.</li>
+  <li><b>Export-Pakete</b> — langlaufende ZIP-Builds von Jahresjournalen in <code>BEXIO_EXPORT_DIR</code>.</li>
+</ul>
+
+<h3>Idempotenz auf dem Hotpath</h3>
+<pre>def _execute_direct_import_post(payload, sid, sess, user_id):
+    for row in payload.rows:
+        fp = compute_entry_fingerprint(
+            tenant_id=tenant, date_iso=row.date, amount=row.amount,
+            debit=row.debit, credit=row.credit,
+            currency=row.currency, description=row.description,
+        )
+        if not payload.allow_duplicates:
+            if find_posted_entries(engine, tenant_id, [fp]):
+                results.append({"status": "DUPLICATE", ...})
+                continue                       <span class="c"># nicht abgerechnet, nicht gesendet</span>
+        resp = requests.post(f"{BEXIO_API_V3}/accounting/manual_entries", ...)
+        if resp.ok:
+            record_posted_entry(engine, tenant_id, fp, bexio_entry_id, ...)
+            consume_import_tokens(engine, user_id, 1)</pre>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="chapter" id="s06">
+  <div class="head">
+    <div class="section-num">§06</div>
+    <div class="titles">
+      <div class="eyebrow">Frontend</div>
+      <h2>Die Next.js-Anwendung</h2>
+    </div>
+  </div>
+  <div class="content-inner">
+
+<h3>Stack</h3>
+<ul>
+  <li><b>Next.js 14</b> App Router. Kein eigener Server; der Container startet nur <code>next start -H 0.0.0.0 -p 3000</code>.</li>
+  <li><b>React 18</b> + <b>@tanstack/react-query 5</b> für sämtlichen Server-State.</li>
+  <li><b>Tailwind CSS 3</b>. Keine Component-Library — die Primitive stehen in <code>app/components/ui.tsx</code>.</li>
+  <li><b>xlsx</b>-Paket für die client-seitige Vorschau (die verbindliche Parse-Logik läuft weiterhin auf dem Backend).</li>
+  <li><b>lucide-react</b> für Icons.</li>
+</ul>
+
+<h3>API-Basis-URL</h3>
+<p><code>NEXT_PUBLIC_API_BASE=/api</code>. Das Frontend spricht nie direkt
+mit <code>backend:8000</code>; jeder Aufruf läuft über Caddys
+<code>handle_path /api/*</code>, das das <code>/api</code>-Präfix entfernt und
+zum Backend proxied.</p>
+
+<h3>middleware.ts</h3>
+<p>Serverseitige Sperre, die vor jeder Anfrage läuft. Nicht angemeldete
+Nutzer werden von privaten Routen nach <code>/login</code> umgeleitet, bereits
+angemeldete Nutzer von <code>/login</code> wieder zurück in die App.</p>
+
+<h3>Auth-Modell im Client</h3>
+<p>Der Session-Zustand ergibt sich aus dem HttpOnly-Cookie
+<code>bp_auth_sid</code>. Da HttpOnly für JS unsichtbar ist, ruft das
+Frontend einmal <span class="badge">GET</span><code>/auth/session</code> auf; die
+Antwort ist die einzige verlässliche Wahrheit über „bin ich eingeloggt". Das
+CSRF-Token liegt im lesbaren Cookie <code>bp_csrf_token</code> und wird bei
+jedem State-verändernden Aufruf als <code>X-CSRF-Token</code>-Header
+mitgesendet — klassisches Double-Submit-Pattern in
+<code>frontend/app/lib/csrf.ts</code>.</p>
+
+<h3>Die Arbeitsfläche <code>/spreadsheet</code></h3>
+<p>Hier verbringen Nutzerinnen die meiste Zeit. Beim Öffnen läuft:</p>
+<pre>POST /api/ai/import/assist   { stage: "spreadsheet", rows: [...] }</pre>
+<p>Die Antwort liefert vier Vorschlagsarrays; die Seite legt sie farbcodiert
+über die Zeilen (grün akzeptierbar, orange <code>needs_review</code>).
+Nutzerinnen können:</p>
+<ul>
+  <li>Einen Vorschlag mit einem Klick annehmen — das POSTet sofort an <code>/ai/audit/booking-decision</code>, damit die Kalibrierung lernt.</li>
+  <li>Ein anderes Konto tippen → Autocomplete aus dem Kontenplan des Mandanten.</li>
+  <li>Aus einem wiederholten Override eine dauerhafte Regel machen: <code>POST /posting-rules</code>.</li>
+</ul>
+
+<h3>i18n</h3>
+<p><code>frontend/app/lib/i18n.ts</code> — handgeschriebenes Wörterbuch. Das
+UI ist Deutsch-first (Schweizer Markt), Englisch als Fallback über
+<code>&lt;LanguageSwitcher/&gt;</code>.</p>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="chapter" id="s07">
+  <div class="head">
+    <div class="section-num">§07</div>
+    <div class="titles">
+      <div class="eyebrow">Datenmodell</div>
+      <h2>Die Postgres-Tabellen</h2>
+    </div>
+  </div>
+  <div class="content-inner">
+
+<p>Sämtlicher State liegt in Postgres. Jedes Service-Modul legt sein eigenes
+<code>CREATE TABLE IF NOT EXISTS</code> in einer
+<code>init_*_schema()</code>-Funktion an, die beim Start läuft — Alembic wird
+<b>nicht</b> eingesetzt.</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Tabelle</th><th>Zweck</th><th>Zuständig</th></tr></thead>
+  <tbody>
+    <tr><td><code>auth_users</code></td><td>E-Mail, bcrypt-Hash, AGB, verifiziert am</td><td>auth_store</td></tr>
+    <tr><td><code>auth_email_challenges</code></td><td>OTP-Codes (SHA-256 + Pepper), Versuche, Ablauf</td><td>auth_store</td></tr>
+    <tr><td><code>auth_sessions</code></td><td>Session-Cookie-ID → User-ID, <code>expires_at</code>, <code>last_seen_at</code></td><td>auth_store</td></tr>
+    <tr><td><code>auth_audit_log</code></td><td>Login/Logout/Fehler, IP, User-Agent</td><td>auth_store</td></tr>
+    <tr><td><code>auth_account_members</code></td><td>Konten mit mehreren Nutzern (Owner + Eingeladene)</td><td>auth_store</td></tr>
+    <tr><td><code>auth_rate_hits</code></td><td>Rate-Limit-Trefferlog</td><td>main.py</td></tr>
+    <tr><td><code>account_profiles</code></td><td>Anzeigename, Sprache, Marketing-Opt-in</td><td>auth_store</td></tr>
+    <tr><td><code>app_kv</code></td><td>Generischer, namensraumbasierter KV-Store, verschlüsselt. Trägt bexio-OAuth-Sessions, Direct-Import-Job-Status, Bulk-Job-Status, Export-Status.</td><td>kv_store</td></tr>
+    <tr><td><code>import_history</code></td><td>Jeder abgeschlossene Import, Zeilen als JSON</td><td>history_store</td></tr>
+    <tr><td><code>posting_rules</code></td><td>Mandantenspezifische Keyword→Konto-Regeln (manuell + gemin­t)</td><td>posting_rules_store</td></tr>
+    <tr><td><code>posted_entries</code></td><td>Idempotenz-Ledger — Fingerprint + bexio-Entry-ID</td><td>posted_entries_store</td></tr>
+    <tr><td><code>ai_audit_events</code></td><td>Jede Akzeptanz/Übersteuerung mit Quelle, roher und kalibrierter Konfidenz, Modell, Hashes. Basis für Kalibrierung und Regel-Mining.</td><td>ai_audit_store</td></tr>
+    <tr><td><code>embedding_cache</code></td><td><code>text_hash</code> → JSON-Vektor. ~30–50 KB pro Zeile bei 3584 Dimensionen.</td><td>embedding_store</td></tr>
+    <tr><td><code>billing_accounts</code></td><td>Stripe-Customer-ID, Plan, Wallet-Saldo</td><td>billing_store</td></tr>
+    <tr><td><code>billing_ledger</code></td><td>Jede Token-Gutschrift, Verbrauch, Rückerstattung</td><td>billing_store</td></tr>
+    <tr><td><code>billing_webhook_events</code></td><td>Bereits verarbeitete Stripe-Event-IDs (Dedup)</td><td>billing_store</td></tr>
+    <tr><td><code>support_tickets</code></td><td>In-App-Support-Tickets, gespiegelt per E-Mail</td><td>support_store</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="call warn">
+Kein Migrations-System vorhanden. Spaltenänderungen erfolgen per
+<code>ALTER TABLE IF NOT EXISTS … ADD COLUMN …</code> innerhalb des
+jeweiligen <code>init_*_schema</code>. Eine NOT-NULL-Spalte auf einer nicht
+leeren Tabelle braucht einen zweistufigen Deploy: (1) nullable + Backfill,
+(2) auf NOT NULL verschärfen. Muster im Code: <code>_ensure_column</code>.
+</div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="chapter" id="s08">
+  <div class="head">
+    <div class="section-num">§08</div>
+    <div class="titles">
+      <div class="eyebrow">Integrationen</div>
+      <h2>Angebundene Fremdsysteme</h2>
+    </div>
+  </div>
+  <div class="content-inner">
+
+<h3>8.1 bexio OAuth 2.0</h3>
+<p>Authorization-Code-Flow mit State-Parameter (kein PKCE — bexio verlangt es
+nicht). Scopes:
+<code>openid profile email offline_access company_profile accounting</code>.</p>
+<pre>GET  /bexio/connect   → liefert bexio-auth_url, setzt State-Cookie
+     Nutzer → bexio.com-Login
+GET  /bexio/callback  → tauscht Code gegen Tokens (POST BEXIO_TOKEN_URL)
+                         legt Access + Refresh verschlüsselt in app_kv ab
+                         warmt Mandantenkontext (company_profile, Konten)</pre>
+<p>Sämtliche URLs sind per Env überschreibbar (<code>BEXIO_AUTHORIZE_URL</code>,
+<code>BEXIO_TOKEN_URL</code>, <code>BEXIO_API_V2</code>,
+<code>BEXIO_API_V3</code>) — nützlich für Staging und Mocks.</p>
+
+<h4>Welche bexio-APIs angesprochen werden</h4>
+<ul>
+  <li><b>V3</b> — Buchhaltungs-Entitäten: <code>/accounts</code>, <code>/currencies</code>, <code>/taxes</code>, <code>/manual_entries</code> (POST, GET/Suche, PUT/DELETE bulk).</li>
+  <li><b>V2</b> — Legacy-Endpunkte für einzelne Report-Exports, die V3 (noch) nicht liefert.</li>
+</ul>
+
+<h3>8.2 Infomaniak AI</h3>
+<p>Infomaniaks OpenAI-kompatibles LLM. Ein einziger Client in
+<code>backend/app/services/ai_provider.py</code>.</p>
+<div class="table-wrap">
+<table class="kv">
+  <tbody>
+    <tr><td>INFOMANIAK_AI_API_KEY</td><td>Bearer-Token</td></tr>
+    <tr><td>INFOMANIAK_AI_BASE_URL</td><td>z.&nbsp;B. <code>https://api.infomaniak.com/llm/openai/v1</code></td></tr>
+    <tr><td>INFOMANIAK_AI_PRODUCT_ID</td><td>Infomaniak-spezifische Mandanten-ID in der URL</td></tr>
+    <tr><td>INFOMANIAK_AI_MODEL</td><td>Standard-Chat-Modell</td></tr>
+    <tr><td>AI_FALLBACK_MODEL</td><td>Fallback bei Fehlern des Hauptmodells (Standard <code>swiss-ai/Apertus-70B-Instruct-2509</code>)</td></tr>
+    <tr><td>AI_EMBEDDING_MODEL</td><td><code>bge_multilingual_gemma2</code> (3584-dim) oder <code>Qwen/Qwen3-Embedding-8B</code> (4096-dim)</td></tr>
+    <tr><td>INFOMANIAK_AI_RESPONSE_FORMAT</td><td><code>json_object</code>, wenn unterstützt, sonst <code>none</code></td></tr>
+  </tbody>
+</table>
+</div>
+<p><code>chat_json()</code> validiert die Antwort gegen ein übergebenes
+Pydantic-Schema und wiederholt den Aufruf ohne
+<code>response_format=json_object</code>, falls der Server ihn ablehnt. Jede
+Request-/Response-Payload wird per SHA-256 gehasht — nur der Hash landet im
+Audit-Log, nie der Klartext.</p>
+
+<h3>8.3 Stripe-Billing</h3>
+<p>Drei Pläne (Starter / Pro / Business) × zwei Intervalle (Monat / Jahr).
+Für jede Kombination gibt es eine <code>STRIPE_*_PRICE_ID</code>.</p>
+<pre>POST /billing/checkout-session   → gehostete Stripe-Checkout-URL
+POST /billing/portal-session     → gehostete Stripe-Customer-Portal-URL
+POST /stripe/webhook             → HMAC-verifiziert (STRIPE_WEBHOOK_SECRET),
+                                    Toleranz 300 s, Dedup über
+                                    billing_webhook_events</pre>
+<p>Erfolgreiches <code>invoice.paid</code> schreibt Tokens ins
+<code>billing_ledger</code>; <code>customer.subscription.*</code> aktualisiert
+den Plan. Die Webhook-Dedup ist neben <code>posted_entries</code> die einzige
+Event-ID-basierte Idempotenz in der App.</p>
+
+<h3>8.4 SMTP-Mail</h3>
+<p>Nüchternes <code>smtplib</code> gegen <code>AUTH_SMTP_HOST</code>. Genutzt
+für OTP-Codes, Support-Tickets, Marketing-Opt-ins und Einladungslinks für
+Mehrbenutzerkonten.</p>
+
+<h3>8.5 BAZG-Monatsdurchschnittskurse</h3>
+<p><code>BAZG_AVG_MONTH_URL</code> — der öffentliche XML-Feed der
+Eidgenössischen Zollverwaltung. Nicht-CHF-Transaktionen werden mit dem
+BAZG-Monatsdurchschnitt umgerechnet; so entsprechen Buchungen den
+schweizerischen Steuerregeln. Ein hardcodierter Fallback in
+<code>main.py</code> deckt 01/2024 bis 05/2026 ab, falls der Feed ausfällt.</p>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="chapter" id="s09">
+  <div class="head">
+    <div class="section-num">§09</div>
+    <div class="titles">
+      <div class="eyebrow">Vorschläge &amp; KI</div>
+      <h2>Vorschlags-Layer (aktuell begrenzt)</h2>
+    </div>
+  </div>
+  <div class="content-inner">
+
+<div class="call warn">
+Aktueller Stand: Die automatische Kontierung ist heute ein optionaler
+Hilfsbaustein, keine tragende Säule der Anwendung. Nutzerinnen buchen
+weiterhin manuell in der Spreadsheet-Ansicht; wo aus mandantenspezifischen
+Regeln oder aus früherer Historie ein Vorschlag ableitbar ist, wird er
+vorbelegt. LLM-Aufrufe sind konservativ dosiert und werden schrittweise
+weiterentwickelt.
+</div>
+
+<p>Der steuernde Endpunkt ist
+<span class="badge">POST</span><code>/ai/import/assist</code>
+(<code>backend/main.py:5116</code>). Er nimmt die bereinigten Zeilen plus den
+bexio-Kontext des Mandanten (Kontenplan, Steuercodes, letzte Buchungen)
+entgegen und liefert vier Vorschlagsarrays: <i>Mapping</i>, <i>Cleanup</i>,
+<i>Belegnummer</i> und <b>Kontierungs­vorschläge</b>.</p>
+
+<p>Die Kontierungs­vorschläge entstehen in bis zu acht kaskadierenden
+Schichten. Jede füllt nur, was die vorherigen offen gelassen haben:
+zuerst deterministisch, zuletzt probabilistisch. So bleibt der Layer bei
+Regeln und Historie sparsam und ruft das LLM nur für wirklich neue Zeilen.</p>
+
+<div class="pipeline">
+  <div class="step"><span><b>Deterministische Buchungsregeln</b><span class="desc">Nutzer-definierte Keyword → Konto. Feste Konfidenz 1.0.</span></span></div>
+  <div class="step"><span><b>Interner-Übertrag-Detektor</b><span class="desc">Wenn zwei eigene Bankkonten auf beiden Seiten erscheinen.</span></span></div>
+  <div class="step"><span><b>Lexikalische Historien-Suche</b><span class="desc">Token-Überschneidung + <code>SequenceMatcher</code> gegen frühere <code>manual_entries</code>.</span></span></div>
+  <div class="step"><span><b>Semantische (Embedding-)Suche</b><span class="desc">Cosine-Ähnlichkeit gegen dasselbe Korpus, nur für offen gebliebene Zeilen.</span></span></div>
+  <div class="step"><span><b>Text-Match gegen Kontenplan</b><span class="desc">Direkter Namensvergleich gegen Konten des Mandanten.</span></span></div>
+  <div class="step"><span><b>LLM-Fallback</b><span class="desc">Infomaniak-Chat-JSON. Maximal 25 Zeilen pro Aufruf.</span></span></div>
+  <div class="step"><span><b>Seed-Wissen (Kaltstart)</b><span class="desc">93 vorbereitete Schweizer-KMU-Zuordnungen, nur wenn alles darüber leer bleibt.</span></span></div>
+  <div class="step"><span><b>Verrechnungskonto-Fallback</b><span class="desc">Letztes Auffangnetz, damit keine Zeile unkontiert bleibt.</span></span></div>
+</div>
+
+<h3>9.1 Deterministische Regeln</h3>
+<p>Nutzerinnen definieren mandantenspezifische Regeln unter
+<code>/posting-rules</code>: „Enthält die Beschreibung <i>SUVA</i>, buche
+gegen Konto 5810." Die Regeln liegen in der Tabelle <code>posting_rules</code>
+(<code>posting_rules_store</code>). Der Matcher lebt in
+<code>ai_assist.posting_rule_suggestions()</code>. Regeln lassen sich zu
+Paketen bündeln; ein Standard-KMU-Paket liegt in
+<code>backend/app/data/standard_booking_rules.json</code>.</p>
+
+<h3>9.2 Interner Übertrag</h3>
+<p><code>internal_transfer_posting_suggestions()</code>. Die Gegen-IBAN wird
+geprüft: gehört sie einem weiteren Bankkonto desselben Mandanten (alle IBANs
+sind aus dem bexio-Kontenplan bekannt), wird Konto-gegen-Konto gebucht — mit
+Konfidenz 0.98. Das eliminiert die klassische Doppelbuchung firmeninterner
+Überträge.</p>
+
+<h3>9.3 Lexikalische Historien-Suche</h3>
+<p><code>ai_engine.historical_retrieval_suggestions()</code>. Die 100
+jüngsten Importe des Mandanten plus bis zu 1000 <code>manual_entries</code>
+aus den letzten 365 Tagen werden geladen und als
+<code>HistoricalBookingExample</code> übergeben. Die Bewertung kombiniert vier
+Signale:</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Signal</th><th>Gewicht</th><th>Bedeutung</th></tr></thead>
+  <tbody>
+    <tr><td>Exakter Textmatch</td><td>+0.62</td><td><code>norm(desc) == norm(prev_desc)</code></td></tr>
+    <tr><td>Treffer Referenznummer</td><td>+0.22</td><td>Referenz erscheint in einer früheren Buchung</td></tr>
+    <tr><td>Token-Überschneidung</td><td>≤ +0.24</td><td>Jaccard-artige Abdeckung</td></tr>
+    <tr><td>Fuzzy-Verhältnis</td><td>Tie-Break</td><td><code>difflib.SequenceMatcher</code> auf ersten 600 Zeichen</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>Der beste Wert gewinnt, sofern er die Schwelle übersteigt. Das
+Gegenkonto — die Seite, die <i>nicht</i> das Bankkonto ist — wird
+vorgeschlagen. Begründungs-Strings werden mitgeliefert, damit das UI
+das <i>Warum</i> anzeigen kann.</p>
+
+<h3>9.4 Semantische Suche</h3>
+<p><code>ai_semantic.py</code>. Läuft nur, wenn <code>AI_EMBEDDING_MODEL</code>
+gesetzt und <code>AI_EMBEDDING_RETRIEVAL_ENABLED</code> aktiv ist.</p>
+<ol>
+  <li>Jede offen gebliebene Zeile wird zu einem Query-String verdichtet (Beschreibung + Referenz + Auftraggeber + Begünstigter + IBAN).</li>
+  <li>Jede historische Beispielbuchung wird analog verdichtet.</li>
+  <li>Beides wird via <code>provider.embed()</code> in Vektoren übersetzt — aktuell Infomaniaks <code>bge_multilingual_gemma2</code> (3584 Dimensionen). Die Vektoren werden in <code>embedding_cache</code> nach SHA-256 des Textes gespeichert; erneute Anfragen sind kostenlos.</li>
+  <li>Der beste Treffer über der Ähnlichkeits-Schwelle wird vorgeschlagen; Konfidenz skaliert mit dem Cosinus.</li>
+</ol>
+
+<div class="call">
+Diese Schicht ist der grösste Genauigkeitsgewinn gegenüber reiner
+Lexikalsuche. Sie findet Umbenennungen wie „MIGROS GENOSSENSCHAFT" ↔
+„M-Budget Migros", die Schicht 3 verpasst. Fail-safe: Bei jedem Provider-Fehler
+bleiben die Ergebnisse aus Schicht 3 unverändert bestehen.
+</div>
+
+<h3>9.5 Text-Match gegen Kontenplan</h3>
+<p><code>chart_account_text_suggestions()</code>. Substring-Vergleich der
+Beschreibungs-Tokens gegen die <b>Namen</b> im Kontenplan. Trifft Fälle wie
+„Zinsertrag" → 6800 „Zinsertrag" ohne vorherige Buchung. Niedrige Konfidenz.</p>
+
+<h3>9.6 LLM-Fallback</h3>
+<p>Nur die nach den Schichten 1–5 noch offenen Zeilen werden ans LLM
+geschickt — nie mehr als <code>AI_BOOKING_LLM_MAX_ROWS</code> (Standard 25)
+pro Aufruf. Der Aufruf erfolgt via
+<code>ai_booking.request_booking_suggestions()</code> und
+<code>chat_json()</code> gegen ein striktes
+<code>BookingSuggestion</code>-Pydantic-Schema. Prompt-Inhalt:</p>
+<ul>
+  <li>Vollständiger Kontenplan des Mandanten (JSON: Name + Nummer + MwSt-Typ).</li>
+  <li>Bis zu 20 ähnlichste historische Beispiele als Few-Shot.</li>
+  <li>Gültige Steuercodes.</li>
+  <li>Die offenen Zeilen (id · Datum · Beschreibung · Betrag · Währung · Richtung).</li>
+</ul>
+<p>Jeder Vorschlag unterhalb <code>AI_BOOKING_CONFIDENCE_THRESHOLD</code>
+(Standard 0.80) wird als <code>needs_review</code> markiert. Kosten, Latenz
+und SHA-256-Hashes von Request/Response landen in <code>ai_audit_events</code>
+— niemals der Klartext, so bleiben PII draussen.</p>
+
+<h3>9.7 Seed-Wissen (Kaltstart)</h3>
+<p><code>seed_knowledge.py</code>. Aufgebaut aus 16'253 realen Journal­zeilen
+von fünf anonymisierten Mandanten (<code>training_data/</code>) und offline
+zu 93 verallgemeinerbaren Schweizer-KMU-Keyword-zu-Konto-Zuordnungen
+verdichtet, via CLI <code>backend/app/cli/ingest_training_data.py</code>.</p>
+<p>Feuert nur, wenn nichts darüber die Zeile gelöst hat. Vorschläge werden auf
+Konten begrenzt, die im Kontenplan des Mandanten tatsächlich existieren, und
+tragen immer <code>needs_review=true</code>, weil generisch. Aktivierung über
+<code>AI_SEED_KNOWLEDGE_ENABLED</code>.</p>
+
+<h3>9.8 Verrechnungskonto-Fallback</h3>
+<p><code>fallback_counter_account_suggestions()</code>. Hat eine Zeile immer
+noch kein Gegenkonto, schlägt die App das Klärungs-/Verrechnungskonto des
+Mandanten vor (typischerweise 1099 oder konfigurierbar). So bleibt keine
+Zeile unbuchbar.</p>
+
+<h3>9.9 Konfidenz-Kalibrierung</h3>
+<p><code>confidence_calibration.py</code>. Nach Zusammenstellung der Vorschläge
+wird jede handgesetzte Konfidenz <b>zur empirisch beobachteten
+Akzeptanzquote pro Quelle</b> aus <code>ai_audit_events</code> hin geschrumpft.
+Die Formel ist ein Beta-Binomial-Posterior:</p>
+<pre>calibrated = (accepted + α) / (total + α + β)   <span class="c"># α, β wirken als Prior</span></pre>
+<p>Wurde eine Quelle (z.&nbsp;B. <code>historical_retrieval</code>) 80 von 100
+Malen akzeptiert, zieht die nächste Konfidenz gegen 0.80 — unabhängig von
+der hardcodierten Konstanten. Fällt die kalibrierte Konfidenz unter die
+Review-Schwelle, wird <code>needs_review</code> aktiviert. Pro Mandant 300 s
+gecached. Rohzahlen liefert der Endpunkt <code>/ai/calibration</code>.</p>
+
+<h3>Woher der Audit-Trail kommt</h3>
+<p>Jede Akzeptanz und jeder Override wird via
+<span class="badge">POST</span><code>/ai/audit/booking-decision</code> nach
+<code>ai_audit_events</code> geschrieben. Diese Daten speisen zwei Dinge:
+(a) die oben genannte Kalibrierung und (b) den Regel-Mining-Endpunkt
+<span class="badge">GET</span><code>/posting-rules/suggestions</code>, der aus
+„Nutzerin hat für Beschreibungen mit STROMKONTO 12-mal von 13 das Konto 6410
+akzeptiert" einen Vorschlag für eine dauerhafte Regel macht, die per Klick
+übernommen werden kann.</p>
+
+<h3>Grenzen des Vorschlags-Layers heute</h3>
+<ul>
+  <li>Regeln, Historie und Vorschläge greifen zuverlässig erst mit ausreichenden Vorlaufdaten pro Mandant.</li>
+  <li>Die Konfidenzwerte der Schichten 1–5 sind noch handgesetzt; die Kalibrierung überlagert sie, ersetzt sie aber nicht.</li>
+  <li>Der LLM-Layer läuft konservativ: Zeilenlimit pro Aufruf, fest verdrahteter Fallback auf ein Klärungskonto.</li>
+  <li>Der Lernkreislauf ist einseitig — gemin­te Regeln werden vorgeschlagen, aber nicht automatisch übernommen.</li>
+  <li>Kontrolle und Verantwortung liegen bei der Nutzerin; die Vorschläge sind Hilfestellung, keine Freigabe.</li>
+</ul>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="chapter" id="s10">
+  <div class="head">
+    <div class="section-num">§10</div>
+    <div class="titles">
+      <div class="eyebrow">Sicherheit</div>
+      <h2>Sicherheit im Überblick</h2>
+    </div>
+  </div>
+  <div class="content-inner">
+
+<h4>Transport</h4>
+<ul>
+  <li>Caddy stellt Let's-Encrypt-Zertifikate automatisch aus. HSTS <code>max-age=31536000; includeSubDomains; preload</code>.</li>
+  <li>CSP <code>frame-ancestors 'none'; base-uri 'self'; object-src 'none'</code>.</li>
+  <li>X-Frame-Options DENY · X-Content-Type-Options nosniff · strikte Referrer-Policy.</li>
+</ul>
+
+<h4>Authentifizierung</h4>
+<ul>
+  <li>Passwörter: <code>bcrypt</code>, Standard-Workfaktor.</li>
+  <li>Sessions: 12 Stunden TTL (<code>AUTH_SESSION_TTL_HOURS</code>), HttpOnly, über HTTPS Secure, SameSite=Lax.</li>
+  <li>Login rate-limited pro IP und pro E-Mail. Fehlversuche verraten nicht, ob die E-Mail existiert (Antworten sind zeitkonstant).</li>
+  <li>OTP: 6-stelliger Code, SHA-256 + <code>AUTH_CODE_PEPPER</code>, 10 Minuten TTL, max. 6 Versuche, 45 s Resend-Cooldown.</li>
+  <li>Der Startup <b>bricht hart ab</b>, wenn <code>AUTH_CODE_PEPPER</code> fehlt, „change_me" enthält oder kürzer als 32 Zeichen ist.</li>
+</ul>
+
+<h4>CSRF</h4>
+<p>Double-Submit: lesbares Cookie <code>bp_csrf_token</code> gegen Header
+<code>X-CSRF-Token</code>, geprüft von <code>_require_csrf()</code> auf jeder
+State-verändernden Route. Bei Abweichung 403.</p>
+
+<h4>bexio-Session-Bindung</h4>
+<p><code>_bexio_session_matches_auth()</code> — eine bexio-Session ist an die
+Auth-<code>user_id</code> gebunden, die sie angelegt hat. Wechselt das
+Auth-Cookie den Nutzer, wird die bexio-Session beim nächsten Request verworfen.
+So werden Cross-User-IDOR-Angriffe auf bexio-Kontexte verhindert. Test:
+<code>tests/test_security_bexio_session_binding.py</code>.</p>
+
+<h4>Verschlüsselung im Ruhezustand</h4>
+<p>bexio-Access- und Refresh-Tokens, OAuth-State-Records und alle
+verschlüsselten KV-Werte werden mit Fernet und <code>APP_ENCRYPTION_KEY</code>
+verschlüsselt. Mehrere Schlüssel für Rotation sind unterstützt (mit Komma
+getrennt → <code>MultiFernet</code>). Fehlender Key → die App läuft, warnt
+aber laut beim Start und speichert Klartext.</p>
+
+<h4>Upload-Sicherheit</h4>
+<ul>
+  <li>Harte Obergrenze <code>MAX_UPLOAD_BYTES</code> (Standard 10 MiB).</li>
+  <li>openpyxl wird mit Defaults aufgerufen; die Upload-Grenze begrenzt Zip-Bomb-Risiko.</li>
+  <li>Dateityp-Validierung via <code>chardet</code> und Magic Bytes.</li>
+</ul>
+
+<h4>Webhooks</h4>
+<p>Der Stripe-Webhook verifiziert die HMAC-Signatur mit 300 s Toleranz und
+dedupliziert über die Event-ID. Es ist der einzige eingehende Webhook.</p>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="chapter" id="s11">
+  <div class="head">
+    <div class="section-num">§11</div>
+    <div class="titles">
+      <div class="eyebrow">Lokale Entwicklung</div>
+      <h2>Lokal starten</h2>
+    </div>
+  </div>
+  <div class="content-inner">
+
+<h3>Voraussetzungen</h3>
+<ul>
+  <li>Docker + Docker-Compose-Plugin (Compose v2).</li>
+  <li>Python 3.11 (nur, wenn das Backend ausserhalb Docker läuft).</li>
+  <li>Node 18+ (nur, wenn das Frontend ausserhalb Docker läuft).</li>
+  <li>Eine <b>bexio-Developer-App</b> mit OAuth-Client-ID/Secret. Registrierung unter <code>developer.bexio.com</code>. Als erlaubte Redirect-URI: <code>http://localhost/api/bexio/callback</code>.</li>
+  <li>Ein <b>Infomaniak-AI-Produkt</b> mit API-Key.</li>
+  <li>Optional: Stripe-Testkonto für die Billing-Endpunkte.</li>
+</ul>
+
+<h3>Minimale <code>.env</code></h3>
+<p>Datei <code>/opt/bp-pilot/app/.env</code> erstellen (aus
+<code>infra/docker-compose.prod.yml</code> als <code>../.env</code>
+referenziert). Vollständige Liste in §13. Minimaler Startsatz:</p>
+
+<pre><span class="c"># --- Basis ---</span>
+APP_ENV=dev
+DOMAIN=localhost
+CORS_ORIGINS=http://localhost,https://localhost
+DATABASE_URL=postgresql://copilot:devpass@postgres:5432/copilot
+POSTGRES_PASSWORD=devpass
+
+<span class="c"># --- Verschlüsselung + Auth ---</span>
+APP_ENCRYPTION_KEY=&lt;python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"&gt;
+AUTH_CODE_PEPPER=&lt;python -c "import secrets; print(secrets.token_urlsafe(48))"&gt;
+AUTH_APP_BASE_URL=http://localhost
+
+<span class="c"># --- Mail (dev: Mailhog / Mailtrap) ---</span>
+MAIL_HOST=mailhog
+MAIL_PORT=1025
+MAIL_ENCRYPTION=none
+MAIL_FROM_ADDRESS=no-reply@localhost
+
+<span class="c"># --- bexio OAuth ---</span>
+BEXIO_CLIENT_ID=...deine Dev-Client-ID...
+BEXIO_CLIENT_SECRET=...
+BEXIO_REDIRECT_URI=http://localhost/api/bexio/callback
+
+<span class="c"># --- Infomaniak AI ---</span>
+INFOMANIAK_AI_API_KEY=...
+INFOMANIAK_AI_BASE_URL=https://api.infomaniak.com/llm/openai/v1
+INFOMANIAK_AI_PRODUCT_ID=...
+INFOMANIAK_AI_MODEL=mistral-nemo-instruct-2407
+AI_EMBEDDING_MODEL=bge_multilingual_gemma2
+AI_EMBEDDING_RETRIEVAL_ENABLED=1
+AI_SEED_KNOWLEDGE_ENABLED=1
+AI_BOOKING_CONFIDENCE_THRESHOLD=0.80
+
+<span class="c"># --- Stripe (Testmodus) ---</span>
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+STRIPE_PUBLISHABLE_KEY=pk_test_...
+
+<span class="c"># --- MinIO (Dev-Defaults reichen) ---</span>
+MINIO_ROOT_USER=minio
+MINIO_ROOT_PASSWORD=minio12345</pre>
+
+<h3>Stack hochfahren</h3>
+<pre>cd /opt/bp-pilot/app/infra
+docker compose -f docker-compose.prod.yml up -d --build
+open http://localhost</pre>
+
+<h3>Nur Backend, mit Hot-Reload</h3>
+<pre>cd backend
+python -m venv .venv &amp;&amp; source .venv/bin/activate
+pip install -r requirements.txt
+export $(grep -v '^#' ../.env | xargs)
+uvicorn main:app --reload --port 8000</pre>
+
+<h3>Nur Frontend</h3>
+<pre>cd frontend
+npm install
+NEXT_PUBLIC_API_BASE=http://localhost:8000 npm run dev</pre>
+
+<h3>Erster Smoke-Test</h3>
+<ol>
+  <li><code>curl http://localhost/api/health</code> → <code>{"status":"ok"}</code></li>
+  <li>Auf <code>/login</code> registrieren; die OTP landet in Mailhog.</li>
+  <li>Auf <code>/settings</code> bexio verbinden.</li>
+  <li><code>fixtures/bank-statements/*.csv</code> auf <code>/upload</code> hochladen.</li>
+  <li>Auf <code>/spreadsheet</code> prüfen: es sollten Vorschläge mit gemischten Quellen sichtbar sein (<code>historical_retrieval</code>, <code>rule</code>, <code>chart_name</code>).</li>
+  <li>Auf <code>/direct-import</code> Dry-Run mit <code>dry_run=true</code>.</li>
+</ol>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="chapter" id="s12">
+  <div class="head">
+    <div class="section-num">§12</div>
+    <div class="titles">
+      <div class="eyebrow">Produktion</div>
+      <h2>Deployment auf den Live-Server</h2>
+    </div>
+  </div>
+  <div class="content-inner">
+
+<h3>Wo Prod läuft</h3>
+<ul>
+  <li><b>Server</b>: Infomaniak Ubuntu-VM (<code>bp-pilot-vm</code>).</li>
+  <li><b>Pfad</b>: <code>/opt/bp-pilot/app</code>.</li>
+  <li><b>Deploy-Branch</b>: <code>main</code>.</li>
+</ul>
+
+<h3>Standard-Deploy</h3>
+<pre>ssh ubuntu@app.bexflow.ch
+cd /opt/bp-pilot/app
+git fetch origin
+git checkout main &amp;&amp; git pull --ff-only
+cd infra
+docker compose -f docker-compose.prod.yml up -d --build
+docker compose -f docker-compose.prod.yml ps
+curl -fsS https://app.bexflow.ch/api/health</pre>
+
+<div class="call warn">
+Der Build-Kontext ist ein Verzeichnis, nicht ein Git-Commit. Alles, was in
+<code>/opt/bp-pilot/app</code> uncommitted liegt, wird mitdeploy­t. Vor jedem
+Deploy auf dem Server <code>git status</code> ausführen und offene Änderungen
+committen oder stash­en. Bekanntes Rollback-Risiko.
+</div>
+
+<h3>Rollback</h3>
+<pre>git log --oneline -20
+git checkout &lt;letzter_guter_sha&gt;
+docker compose -f infra/docker-compose.prod.yml up -d --build</pre>
+
+<h3>Zero-Downtime-Hinweise</h3>
+<ul>
+  <li><code>uvicorn</code> läuft absichtlich <b>single-worker</b>: eine echte Cross-Worker-Kohärenz bei bexio-Token-Refreshes bräuchte Redis, das nicht im Stack ist. Ein Rolling Restart schneidet hart, meist unter 3 s.</li>
+  <li>Langlaufende Direct-Import- und Bulk-Mutation-Jobs sterben beim Restart. Ihr Zustand ist in <code>app_kv</code> gesichert, Status-Endpunkte liefern also den letzten Snapshot — die Jobs starten aber nicht von selbst neu. Restarts ausserhalb der Geschäftszeiten planen.</li>
+</ul>
+
+<h3>Datenbank-Backups</h3>
+<p>Verantwortung der Betreiber. Das Volume <code>pg_data</code> lässt sich mit
+folgendem Befehl sichern:</p>
+<pre>docker exec bp-pilot-postgres-1 pg_dump -U copilot copilot \
+  | gzip &gt; backup-$(date +%F).sql.gz</pre>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="chapter" id="s13">
+  <div class="head">
+    <div class="section-num">§13</div>
+    <div class="titles">
+      <div class="eyebrow">Referenz</div>
+      <h2>Alle Umgebungsvariablen</h2>
+    </div>
+  </div>
+  <div class="content-inner">
+
+<h3>Basis / Infrastruktur</h3>
+<div class="table-wrap"><table class="kv">
+  <tbody>
+    <tr><td>APP_ENV</td><td>dev / staging / prod. Informativ.</td></tr>
+    <tr><td>DOMAIN</td><td>Primäre Domain für Caddy. Standard <code>app.bexflow.ch</code>.</td></tr>
+    <tr><td>CORS_ORIGINS</td><td>Komma-getrennte Origins für FastAPI-CORS.</td></tr>
+    <tr><td>DATABASE_URL</td><td>SQLAlchemy-URL. Fallback: <code>sqlite:///imports.db</code>.</td></tr>
+    <tr><td>POSTGRES_PASSWORD</td><td>Wird beim ersten Start ins Postgres-Image geschrieben.</td></tr>
+    <tr><td>MAX_UPLOAD_BYTES</td><td>Harte Obergrenze pro Upload. Standard 10 MiB.</td></tr>
+  </tbody>
+</table></div>
+
+<h3>Verschlüsselung / Auth</h3>
+<div class="table-wrap"><table class="kv">
+  <tbody>
+    <tr><td>APP_ENCRYPTION_KEY</td><td>Komma-getrennte Fernet-Keys. Der erste verschlüsselt; alle werden zum Entschlüsseln probiert. <b>Ohne Key wandern Tokens im Klartext in die DB.</b></td></tr>
+    <tr><td>AUTH_CODE_PEPPER</td><td>≥ 32 Zeichen, kein „change_me". Beim Start verpflichtend geprüft.</td></tr>
+    <tr><td>AUTH_SESSION_TTL_HOURS</td><td>Session-Lebensdauer. Standard 12.</td></tr>
+    <tr><td>AUTH_OTP_TTL_MINUTES · MAX_ATTEMPTS · RESEND_COOLDOWN_SECONDS</td><td>OTP-Parameter (10 / 6 / 45).</td></tr>
+    <tr><td>AUTH_APP_BASE_URL</td><td>Für ausgehende Links in E-Mails.</td></tr>
+    <tr><td>AUTH_EMAIL_FROM · _NAME</td><td>Absender der Auth-Mails.</td></tr>
+    <tr><td>AUTH_SMTP_HOST · PORT · USER · PASS · TLS</td><td>SMTP für Auth-Mails. Fällt auf <code>MAIL_*</code> zurück.</td></tr>
+    <tr><td>MAIL_HOST · PORT · USERNAME · PASSWORD · ENCRYPTION · FROM_ADDRESS · FROM_NAME</td><td>App-weite SMTP-Defaults.</td></tr>
+  </tbody>
+</table></div>
+
+<h3>bexio</h3>
+<div class="table-wrap"><table class="kv">
+  <tbody>
+    <tr><td>BEXIO_CLIENT_ID · BEXIO_CLIENT_SECRET</td><td>OAuth-App-Credentials.</td></tr>
+    <tr><td>BEXIO_REDIRECT_URI</td><td>Callback-URL. Standard <code>{base}/api/bexio/callback</code>.</td></tr>
+    <tr><td>BEXIO_SCOPES</td><td>OAuth-Scopes. Deckt OpenID + Accounting ab.</td></tr>
+    <tr><td>BEXIO_AUTHORIZE_URL · TOKEN_URL</td><td>Für Staging überschreibbar.</td></tr>
+    <tr><td>BEXIO_API_V2 · V3</td><td>Basis-URLs. Standard bexio.com.</td></tr>
+    <tr><td>BEXIO_OAUTH_STATE_TTL_SECONDS</td><td>TTL des State-Records. Standard 900.</td></tr>
+    <tr><td>BEXIO_EXPORT_DIR</td><td>Zielordner für Jahres-ZIPs. Standard <code>/tmp/bexio_exports</code>.</td></tr>
+    <tr><td>BEXIO_EXPORT_MAX_FILES · CONSERVATIVE_DELAY_SECONDS</td><td>Rate-/Volumen-Regler für den Export.</td></tr>
+  </tbody>
+</table></div>
+
+<h3>KI</h3>
+<div class="table-wrap"><table class="kv">
+  <tbody>
+    <tr><td>INFOMANIAK_AI_API_KEY</td><td>Bearer-Token.</td></tr>
+    <tr><td>INFOMANIAK_AI_BASE_URL</td><td>OpenAI-kompatible Basis-URL.</td></tr>
+    <tr><td>INFOMANIAK_AI_PRODUCT_ID</td><td>Infomaniak-Mandanten-ID.</td></tr>
+    <tr><td>INFOMANIAK_AI_MODEL</td><td>Standard-Chat-Modell.</td></tr>
+    <tr><td>INFOMANIAK_AI_RESPONSE_FORMAT</td><td><code>json_object</code> oder <code>none</code>.</td></tr>
+    <tr><td>AI_FALLBACK_MODEL</td><td>Fallback bei Fehlern des Hauptmodells.</td></tr>
+    <tr><td>AI_EMBEDDING_MODEL</td><td>Aktiviert die semantische Schicht. Aktuell <code>bge_multilingual_gemma2</code>.</td></tr>
+    <tr><td>AI_EMBEDDING_RETRIEVAL_ENABLED</td><td>Kill-Switch für die semantische Suche.</td></tr>
+    <tr><td>AI_SEED_KNOWLEDGE_ENABLED</td><td>Kill-Switch für den Kaltstart-Layer.</td></tr>
+    <tr><td>AI_BOOKING_CONFIDENCE_THRESHOLD</td><td>Standard 0.80 — darunter → needs_review.</td></tr>
+    <tr><td>AI_BOOKING_LLM_MAX_ROWS</td><td>Zeilenlimit pro LLM-Aufruf. Standard 25.</td></tr>
+    <tr><td>AI_BOOKING_MAX_BATCH_SIZE</td><td>LLM-Batch-Grösse (auf [1,100] beschränkt).</td></tr>
+    <tr><td>AI_CALIBRATION_TTL_SECONDS</td><td>Cache-Lebensdauer der Kalibrierung. Standard 300.</td></tr>
+    <tr><td>AI_BOOKING_SUGGESTIONS_ENABLED</td><td>Master-Schalter für die LLM-Schicht.</td></tr>
+  </tbody>
+</table></div>
+
+<h3>Stripe</h3>
+<div class="table-wrap"><table class="kv">
+  <tbody>
+    <tr><td>STRIPE_SECRET_KEY · PUBLISHABLE_KEY · WEBHOOK_SECRET</td><td>Standard-Stripe-API-Keys.</td></tr>
+    <tr><td>STRIPE_WEBHOOK_TOLERANCE_SECONDS</td><td>Toleranz für den Signatur-Zeitstempel. Standard 300.</td></tr>
+    <tr><td>STRIPE_STARTER · PRO · BUSINESS _PRODUCT_ID</td><td>Stripe-Product-IDs.</td></tr>
+    <tr><td>STRIPE_{PLAN}_{MONTH,YEAR}_PRICE_ID</td><td>Sechs Price-IDs: Plan × Intervall.</td></tr>
+    <tr><td>BILLING_TRIAL_TOKENS</td><td>Gratis-Tokens bei Registrierung. Standard 50.</td></tr>
+    <tr><td>SIGNUP_BONUS_CREDITS · CUTOFF_DATE · TIMEZONE</td><td>Zeitlich befristeter Launch-Bonus.</td></tr>
+  </tbody>
+</table></div>
+
+<h3>Betrieb</h3>
+<div class="table-wrap"><table class="kv">
+  <tbody>
+    <tr><td>SUPPORT_TICKET_EMAIL · FORWARD_EMAIL</td><td>Support-Postfach und Weiterleitung.</td></tr>
+    <tr><td>SUPPORT_TICKET_MAX_ATTACHMENT_BYTES · ATTACHMENTS</td><td>Anhangs-Limits. Standard 8 MiB × 5.</td></tr>
+    <tr><td>MARKETING_EMAIL_LIST_EMAIL · CC_EMAIL</td><td>Empfänger des Landing-Opt-ins.</td></tr>
+    <tr><td>BAZG_AVG_MONTH_URL</td><td>FX-Quelle. Fallback-Dict deckt 01/2024…05/2026 ab.</td></tr>
+  </tbody>
+</table></div>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="chapter" id="s14">
+  <div class="head">
+    <div class="section-num">§14</div>
+    <div class="titles">
+      <div class="eyebrow">Tests</div>
+      <h2>Was vor dem Merge läuft</h2>
+    </div>
+  </div>
+  <div class="content-inner">
+
+<h3>Backend</h3>
+<pre>cd backend
+pytest -q</pre>
+<p>27 pytest-Dateien decken ab: Auth &amp; User-Enumeration, CSRF,
+Rate-Limits, Stripe-Webhook, sicherheitsorientierte Upload-Prüfungen,
+bexio-Session-Bindung, IDOR beim Account-Löschen, Crypto, KV-Verschlüsselung,
+KI-Parsing/-Booking/-Semantik, Duplikat-Ledger, Konfidenz-Kalibrierung,
+Regel-Store, Regel-Mining, Seed-Wissen, Marketing-Mailliste. Tests laufen mit
+SQLite (In-Memory oder Tempfile) — keine echte DB nötig.</p>
+
+<h3>Frontend</h3>
+<pre>cd frontend
+npm run test:import-engine     <span class="c"># Node-Harness — Golden-CSV → erwartete Zeilen</span>
+npm run smoke:live             <span class="c"># Playwright-Smoke gegen eine Live-URL</span></pre>
+
+<h3>End-to-End-Fixtures</h3>
+<p><code>fixtures/bank-statements/</code> enthält bereinigte CSV-/XLSX-Dateien
+von UBS, PostFinance, Raiffeisen und Revolut zur Reproduktion von Parse-Bugs.</p>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="chapter" id="s15">
+  <div class="head">
+    <div class="section-num">§15</div>
+    <div class="titles">
+      <div class="eyebrow">Offene Punkte</div>
+      <h2>Bekannte Themen und Follow-Ups</h2>
+    </div>
+  </div>
+  <div class="content-inner">
+
+<h3>Verschobene technische Arbeit</h3>
+<ul>
+  <li><b><code>backend/main.py</code> aufteilen</b> in <code>APIRouter</code>-Dateien (Auth / bexio / KI / Billing / Manual-Entries / Imports). ~8 kLoC in einer Datei sind handhabbar, aber nicht dauerhaft ideal.</li>
+  <li><b>Redis für Cross-Worker-Token-Refresh-Kohärenz.</b> Bis dahin bleibt uvicorn in Prod single-worker.</li>
+  <li><b>Alembic-Migrationen.</b> Jede Schemaänderung heute per <code>CREATE TABLE IF NOT EXISTS</code> oder <code>ALTER TABLE … ADD COLUMN IF NOT EXISTS</code>. Für Additiv-Änderungen okay, für alles andere unangenehm.</li>
+  <li><b>Deploys an einen Git-SHA binden.</b> Aktuell ist der Build-Kontext das Arbeitsverzeichnis — uncommitted Code wandert mit in Prod. Abhilfe: CI-gebaute Images oder <code>git archive</code> im Build.</li>
+  <li><b><code>embedding_cache</code>-Wachstum.</b> ~30–50 KB pro Zeile bei 3584 Dimensionen als JSON. Ab ~100 k Transaktionen pro Mandant sollte eine grössenbasierte Verdrängung her.</li>
+</ul>
+
+<h3>Produkt-Follow-Ups</h3>
+<ul>
+  <li><b>Lernkreislauf.</b> Jede Nutzer-Überschreibung wird auditiert, gemin­te Regeln (<code>rule_mining.py</code>) werden aber nur vorgeschlagen, nicht automatisch übernommen. Auto-Adoption ab N Akzeptanzen steht UX-seitig noch aus.</li>
+  <li><b>Konfidenz-Konstanten</b> in den Schichten 1–5 sind noch handgesetzt; die Kalibrierung überlagert sie, ersetzt sie aber nicht.</li>
+</ul>
+
+<h3>Operative Besonderheiten</h3>
+<ul>
+  <li>Der Service <code>tasktrack</code> in <code>docker-compose.prod.yml</code> ist ein anderes internes Tool. Wer nur BexFLOW verantwortet, kann ihn aus dem Compose-Aufruf entfernen.</li>
+  <li><code>bp-docu</code> serviert die Marketing-Site unter <code>wiki.burkhart-partners.ch</code>. Static Export; Inhaltsänderungen erfordern einen Rebuild.</li>
+  <li>Support-Tickets werden nach <code>sick@burkhart-partners.ch</code> gespiegelt — die Inbox des Gründers. Bei Handover <code>SUPPORT_TICKET_FORWARD_EMAIL</code> anpassen.</li>
+</ul>
+
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="chapter" id="s16">
+  <div class="head">
+    <div class="section-num">§16</div>
+    <div class="titles">
+      <div class="eyebrow">Betrieb</div>
+      <h2>Runbook — wenn etwas kaputt geht</h2>
+    </div>
+  </div>
+  <div class="content-inner">
+
+<h3>„Die KI schlägt nichts vor"</h3>
+<ol>
+  <li><code>curl https://app.bexflow.ch/api/ai/health</code> — sollte die konfigurierten Modelle zurückgeben.</li>
+  <li>Prüfen, ob <code>INFOMANIAK_AI_API_KEY</code> gesetzt und gültig ist.</li>
+  <li>Nur die semantische Schicht tot? <code>AI_EMBEDDING_MODEL=bge_multilingual_gemma2</code> exakt so schreiben — jede andere Schreibweise / jeder Anzeigename führt bei Infomaniaks <code>/embeddings</code> zu 404.</li>
+</ol>
+
+<h3>„Ein Nutzer bekommt bei jeder Zeile DUPLICATE"</h3>
+<p>Das Dedup-Ledger arbeitet korrekt — die Fingerabdrücke passen auf frühere
+Buchungen. Entweder lädt die Nutzerin denselben Auszug erneut (erwartet), oder
+der Fingerabdruck ist zu breit. Notausgang: beim Direct-Import-POST
+<code>allow_duplicates=true</code> setzen (im UI als „Duplikate zulassen"
+sichtbar) oder gezielt Fingerabdrücke via
+<span class="badge">POST</span><code>/bexio/direct-import/duplicates/clear</code>
+löschen.</p>
+
+<h3>„Ein Nutzer ist aus bexio ausgeloggt"</h3>
+<p>Erwartet nach ~30 Tagen (Refresh-Token-Lebensdauer). Reconnect über
+<code>/bexio/connect?reconnect=true</code>.</p>
+
+<h3>„Stripe-Webhook-Events werden nicht verarbeitet"</h3>
+<ol>
+  <li>Prüfen, ob <code>STRIPE_WEBHOOK_SECRET</code> mit dem Endpoint-Secret im Stripe-Dashboard übereinstimmt.</li>
+  <li>In <code>billing_webhook_events</code> nach der Event-ID suchen — steht sie drin, ist der Dedup ordnungsgemäss aktiv.</li>
+  <li>Zeitverschiebung: Toleranz ist 300 s; <code>ntpdate</code>, falls die Serveruhr driftet.</li>
+</ol>
+
+<h3>„Container startet nicht: AUTH_CODE_PEPPER"</h3>
+<p>Der Start bricht absichtlich hart ab, wenn der Pepper fehlt, zu kurz ist
+oder „change_me" enthält. Env korrigieren und neu starten.</p>
+
+<h3>Notfall: letzten Deploy zurückrollen</h3>
+<pre>cd /opt/bp-pilot/app
+git log --oneline -5
+git checkout &lt;letzter_sha&gt;
+docker compose -f infra/docker-compose.prod.yml up -d --build backend
+curl -fsS https://app.bexflow.ch/api/health</pre>
+
+<h3>Wo zuerst suchen, wenn etwas komisch ist</h3>
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Symptom</th><th>Blick zuerst hierher</th></tr></thead>
+  <tbody>
+    <tr><td>Buchung falsch kontiert</td><td><code>ai_audit_events</code> für die Zeile → welche Schicht / welches Modell hat sie erzeugt</td></tr>
+    <tr><td>Buchung bei bexio fehlgeschlagen</td><td>Direct-Import-Job-Status: <code>GET /bexio/direct-import/jobs/:id</code></td></tr>
+    <tr><td>Nutzer kann sich nicht einloggen</td><td><code>auth_audit_log</code> nach E-Mail filtern</td></tr>
+    <tr><td>Zahlung nicht gutgeschrieben</td><td><code>billing_ledger</code> nach <code>billing_account_id</code></td></tr>
+    <tr><td>Import unleserlich</td><td><code>import_history.payload_json</code> — die geparsten Rohzeilen liegen archiviert vor</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="call hi">
+Dieses Dokument deckt lokalen Betrieb, Deployment, die wichtigsten Module und
+das Runbook für den Live-Betrieb ab. Für Details, die hier nicht ausgeführt
+sind, ist der primäre Anlaufpunkt <code>backend/main.py</code>, gefolgt von
+den Modulen unter <code>backend/app/services/</code>.
+</div>
+
+  </div>
+</section>
+
+<footer class="foot">
+  <div>BexFLOW · Technische Übergabe</div>
+  <div>Ende des Dokuments</div>
+</footer>
+
+</div><!-- /.content -->
+
+<aside class="rail" aria-label="Inhaltsverzeichnis">
+  <nav>
+    <div class="eyebrow">Inhalt</div>
+    <ol>
+      <li><a href="#s01"><span class="n">01</span><span>Übersicht</span></a></li>
+      <li><a href="#s02"><span class="n">02</span><span>Nutzerpfad</span></a></li>
+      <li><a href="#s03"><span class="n">03</span><span>Architektur</span></a></li>
+      <li><a href="#s04"><span class="n">04</span><span>Repository</span></a></li>
+      <li><a href="#s05"><span class="n">05</span><span>Backend</span></a></li>
+      <li><a href="#s06"><span class="n">06</span><span>Frontend</span></a></li>
+      <li><a href="#s07"><span class="n">07</span><span>Datenmodell</span></a></li>
+      <li><a href="#s08"><span class="n">08</span><span>Integrationen</span></a></li>
+      <li><a href="#s09"><span class="n">09</span><span>Vorschlags-Layer</span></a></li>
+      <li><a href="#s10"><span class="n">10</span><span>Sicherheit</span></a></li>
+      <li><a href="#s11"><span class="n">11</span><span>Lokal starten</span></a></li>
+      <li><a href="#s12"><span class="n">12</span><span>Deployment</span></a></li>
+      <li><a href="#s13"><span class="n">13</span><span>Env-Variablen</span></a></li>
+      <li><a href="#s14"><span class="n">14</span><span>Tests</span></a></li>
+      <li><a href="#s15"><span class="n">15</span><span>Offene Punkte</span></a></li>
+      <li><a href="#s16"><span class="n">16</span><span>Runbook</span></a></li>
+    </ol>
+  </nav>
+</aside>
+
+</div>
