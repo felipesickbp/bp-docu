@@ -27,8 +27,31 @@ export function SidebarNav({
     setExpandedGroup(currentPath === "/" ? null : activeGroupLabel);
   }, [activeGroupLabel, currentPath]);
 
+  const isBexflowActive = currentPath === "/bexflow";
+
   return (
     <nav className="space-y-3">
+      <Link
+        href="/bexflow"
+        onClick={onNavigate}
+        className={clsx(
+          "flex items-center justify-between rounded-[1.6rem] px-3 py-3 text-sm font-semibold transition",
+          isBexflowActive
+            ? "bg-[#0b214c] text-white shadow-sm"
+            : "text-ink hover:bg-white/80",
+        )}
+      >
+        <span>BexFLOW</span>
+        <span
+          className={clsx(
+            "text-[10px] font-semibold uppercase tracking-[0.16em]",
+            isBexflowActive ? "text-white/80" : "text-slate/70",
+          )}
+        >
+          Technisch
+        </span>
+      </Link>
+
       {navigation.map((group) => {
         const isExpanded = expandedGroup === group.label;
         const isActiveGroup = activeGroupLabel === group.label;

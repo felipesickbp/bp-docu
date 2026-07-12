@@ -1,4 +1,4 @@
-<title>BexFLOW — Technische Übergabe</title>
+<title>BexFLOW — Technische Dokumentation</title>
 <style>
   :root {
     --bg: #EDEFF3;
@@ -413,6 +413,18 @@
     font-size: 12px; color: var(--ink-muted);
     text-transform: uppercase; letter-spacing: 1.4px;
   }
+  footer.foot .foot-download {
+    color: var(--ink-muted);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--rule-strong);
+    padding-bottom: 1px;
+    transition: color 120ms ease, border-color 120ms ease;
+  }
+  footer.foot .foot-download:hover,
+  footer.foot .foot-download:focus-visible {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
 
   @media (max-width: 960px) {
     .page { grid-template-columns: 1fr; padding: 24px 20px 64px; }
@@ -450,13 +462,13 @@
 
 <header class="masthead">
   <div class="lockup">
-    <div class="kicker"><span class="dot"></span> Technische Übergabe · Version 1.0 · Stand 12.07.2026</div>
-    <h1 class="title">BexFLOW <em>— technische Übergabe</em></h1>
+    <div class="kicker"><span class="dot"></span> Technische Dokumentation · Version 1.0 · Stand 12.07.2026</div>
+    <h1 class="title">BexFLOW <em>— technische Dokumentation</em></h1>
     <p class="subtitle">
-      Eine Schweizer Pipeline von der Bankauszugs-Datei bis zur gebuchten
-      Sammelbuchung in bexio. Dieses Dokument richtet sich an die
-      Entwicklerin oder den Entwickler, die den Code übernimmt: vom
-      Produktverständnis bis zum Live-Betrieb.
+      Eine Schweizer Pipeline von der Bankauszugs-Datei bis zu fertigen
+      Buchungen in bexio. Dieses Dokument richtet sich an Entwicklerin oder
+      den Entwickler, die den Code übernimmt: vom Produktverständnis bis
+      zum Live-Betrieb.
     </p>
   </div>
   <div class="colophon">
@@ -472,7 +484,7 @@
   <div class="fact"><div class="lbl">Backend</div><div class="val">FastAPI · <code>~8 kLoC</code> · 65 Routen</div></div>
   <div class="fact"><div class="lbl">Frontend</div><div class="val">Next.js 14 · React 18</div></div>
   <div class="fact"><div class="lbl">Datenhaltung</div><div class="val">PostgreSQL 16 + MinIO</div></div>
-  <div class="fact"><div class="lbl">KI-Anbieter</div><div class="val">Infomaniak (OpenAI-kompatibel)</div></div>
+  <div class="fact"><div class="lbl">Cloud-Anbieter</div><div class="val">Infomaniak</div></div>
 </div>
 
 <!-- ============================================================ -->
@@ -486,35 +498,71 @@
   </div>
   <div class="content-inner">
 
-<p>BexFLOW (intern <i>BP Pilot</i>) ist eine Schweizer B2B-Webanwendung, die
-sich zwischen die Bankauszüge eines Unternehmens und dessen Buchhaltungs­system
-<a href="https://bexio.com">bexio</a> stellt. Sie strukturiert und
-beschleunigt die Erfassung am Monatsende und verhindert Doppelbuchungen — die
-buchhalterische Entscheidung pro Zeile trifft weiterhin die Nutzerin.</p>
+<p>BexFLOW (intern <i>BP Pilot</i>) ist eine Schweizer B2B-Webanwendung. Sie
+sitzt zwischen den Bankauszügen eines Unternehmens und der Cloud-Buchhaltung
+<a href="https://bexio.com">bexio</a>: der Bankauszug wird eingelesen,
+strukturiert, zeilenweise geprüft und schliesslich als fertige Buchungen in
+bexio geschrieben. Ziel ist es, die manuelle Erfassung am Monatsende zu
+beschleunigen und Doppelbuchungen technisch auszuschliessen. Die
+buchhalterische Entscheidung pro Zeile trifft weiterhin die Nutzerin — die
+App liefert Struktur, Historie und Duplikat-Schutz.</p>
 
-<p>Zielnutzer sind kleine und mittlere Schweizer Unternehmen, Treuhänderinnen
-und interne Buchhalter. Sie melden sich an, verbinden bexio einmalig per OAuth
-und laden anschliessend das CSV oder XLSX hoch, das sie bei ihrer Bank
-exportiert haben (UBS, PostFinance, Raiffeisen, Revolut usw.).</p>
+<h3>Warum es die App gibt</h3>
+<p>In vielen KMU wandern Bankauszüge Zeile für Zeile per Copy-Paste in
+bexio. Das ist zeitaufwändig und fehleranfällig, besonders am Monatsende.
+BexFLOW automatisiert den Transportweg zwischen Bankauszug und bexio und
+lässt die Nutzerin nur dort eingreifen, wo eine Entscheidung ansteht: welches
+Konto, welcher MwSt-Code, was ist ein Duplikat, was gehört zusammengefasst.</p>
+
+<h3>Zielgruppe</h3>
+<p>Zielgruppe sind kleine und mittlere Schweizer Unternehmen, Treuhänderinnen
+und interne Buchhalter. Sie melden sich an, verbinden bexio einmalig per
+OAuth 2.0 und laden anschliessend das CSV oder XLSX hoch, das sie bei ihrer
+Bank exportiert haben (UBS, PostFinance, Raiffeisen, Revolut usw.).</p>
 
 <h3>Was die Nutzerin sieht</h3>
 <ol>
   <li><b>Upload.</b> Bankauszug per Drag-and-Drop in den Browser ziehen.</li>
   <li><b>Vorschau.</b> Die App erkennt Spalten (Datum, Betrag, Beschreibung, IBAN) automatisch und lässt das Mapping direkt in der Tabelle korrigieren.</li>
   <li><b>Bereinigung.</b> Datumsformate werden normalisiert (Schweizer <code>tt.mm.jjjj</code> → ISO), Vorzeichen korrigiert, Abkürzungen aufgelöst.</li>
-  <li><b>Kontieren.</b> Die Nutzerin kontiert Zeile für Zeile über eine editierbare Tabelle. Wo aus mandanten­eigenen Regeln oder aus früheren Buchungen ein Soll-/Haben-Konto abgeleitet werden kann, wird es vorbelegt und markiert; alles andere wird manuell erfasst oder korrigiert. Der automatische Vorschlags-Layer ist heute begrenzt (§09) und wird schrittweise ausgebaut.</li>
-  <li><b>Buchen.</b> Ein Klick schreibt jede Buchung als <i>manual entry</i> via bexio-REST-API.</li>
+  <li><b>Kontieren.</b> Die Nutzerin kontiert Zeile für Zeile über eine editierbare Tabelle. Wo aus mandantenspezifischen Regeln oder aus früheren Buchungen ein Soll-/Haben-Konto abgeleitet werden kann, wird es vorbelegt und markiert; alles andere wird manuell erfasst oder korrigiert. Der automatische Vorschlags-Layer ist heute begrenzt (§09) und wird schrittweise ausgebaut.</li>
+  <li><b>Buchen.</b> Ein Klick schreibt jede Buchung als <i>manual entry</i> in bexio.</li>
 </ol>
 
 <div class="call hi">
 Der Kern von BexFLOW ist der strukturierte Ablauf: Datei einlesen, Spalten
-sauber mappen, Zeilen bereinigen und in einer editierbaren Tabelle in
-Sammelbuchungen überführen — mit Idempotenz-Schutz gegen Doppelbuchungen und
-einer Import-Historie. Vorschläge zur Kontierung (Regeln, Historie, teilweise
-KI) sind ein optionaler Hilfs-Layer, der aktuell begrenzt ist und
-schrittweise ausgebaut wird. Die buchhalterische Entscheidung trifft die
-Nutzerin.
+sauber mappen, Zeilen bereinigen und in einer editierbaren Tabelle in fertige
+Buchungen überführen — mit Idempotenz-Schutz gegen Doppelbuchungen und einer
+Import-Historie. Vorschläge zur Kontierung (Regeln, Historie, teilweise KI)
+sind ein optionaler Hilfs-Layer, der aktuell begrenzt ist und schrittweise
+ausgebaut wird. Die buchhalterische Entscheidung trifft die Nutzerin.
 </div>
+
+<h3>Verhältnis zu bexio</h3>
+<p>Fast alles, was BexFLOW tut, endet in einem Aufruf gegen die
+<b>bexio-REST-API</b>. bexio ist das führende Buchhaltungssystem; BexFLOW ist
+ein spezialisierter Aufsatz, der grosse Mengen an Buchungen effizient und
+kontrolliert dorthin schreibt und aus dem eigenen Kontenplan des Mandanten
+liest. Konkret heisst das:</p>
+<ul>
+  <li>Pro Mandant wird einmalig ein bexio-OAuth-Zugriff hergestellt (Access + Refresh Token).</li>
+  <li>Kontenplan, Steuercodes, Fremdwährungen und vergangene Buchungen kommen live aus bexio (mit kurzem lokalem Cache).</li>
+  <li>Neue Buchungen werden per <code>POST /accounting/manual_entries</code> gegen die bexio-API v3 erzeugt — pro Zeile ein Aufruf, mit Fingerprint-Prüfung davor.</li>
+  <li>Massenbearbeitungen und Löschungen laufen ebenfalls über die bexio-API, gebündelt in einem Hintergrund-Job.</li>
+  <li>bexio bleibt der führende Ledger — BexFLOW hält von den Buchungen selbst nur Metadaten (Fingerprint, Audit, Historie).</li>
+</ul>
+
+<h3>Sicherheit und Verschlüsselung auf einen Blick</h3>
+<p>Sensible Daten liegen entweder verschlüsselt oder gehasht in der
+Datenbank; nichts sicherheitsrelevantes wird im Klartext gespeichert:</p>
+<ul>
+  <li><b>bexio-Access- und Refresh-Tokens</b> werden mit <b>Fernet</b> (AES-128-CBC + HMAC) symmetrisch verschlüsselt (Schlüssel via <code>APP_ENCRYPTION_KEY</code>) und dann in Postgres abgelegt.</li>
+  <li><b>Passwörter</b> werden mit <b>bcrypt</b> gehasht — bewusst nicht wieder-lesbar, wie es der Standard verlangt.</li>
+  <li><b>E-Mail-OTP-Codes</b> werden mit SHA-256 plus einem <code>AUTH_CODE_PEPPER</code> gehasht, nicht als Klartext abgelegt.</li>
+  <li><b>Transport</b>: Browser ↔ Server läuft ausschliesslich über TLS (Let's-Encrypt-Zertifikate via Caddy).</li>
+  <li><b>Audit-Trail der KI-Aufrufe</b>: Prompt und Antwort werden nur als SHA-256-Hash geloggt, nicht im Klartext.</li>
+</ul>
+<p>Details zu Auth-Flows, Rate-Limits und CSRF stehen in §10.</p>
 
 <h3>Geschäftsmodell</h3>
 <p>Abgerechnet wird per <b>Token</b>: eine gebuchte Transaktion entspricht
@@ -522,13 +570,6 @@ einem Token. Neue Nutzer erhalten 50 Test-Token und bis 09.08.2026 zusätzlich
 100 Bonus-Credits. Anschliessend werden Starter-, Pro- oder Business-Pläne
 per Stripe Checkout gebucht (monatlich oder jährlich). Duplikate, die vom
 Idempotenz-Ledger abgefangen werden, kosten <b>nie</b> Token.</p>
-
-<h3>Was BexFLOW nicht ist</h3>
-<ul>
-  <li>Keine vollständige Buchhaltung — bexio bleibt das führende System.</li>
-  <li>Keine Belegerkennung oder OCR — Eingabe ist immer ein Bankauszug.</li>
-  <li>Kein QR-Rechnungs-Generator und keine Zahlungsauslösung.</li>
-</ul>
 
   </div>
 </section>
@@ -577,7 +618,7 @@ Duplikate werden nicht abgerechnet.</p>
     <div class="section-num">§03</div>
     <div class="titles">
       <div class="eyebrow">Architektur</div>
-      <h2>Wer mit wem spricht</h2>
+      <h2>Die Bausteine und wie sie zusammenspielen</h2>
     </div>
   </div>
   <div class="content-inner">
@@ -615,7 +656,7 @@ Duplikate werden nicht abgerechnet.</p>
     <tr><td><b>caddy</b></td><td>TLS-Terminierung, gzip, Security-Header, pfadbasiertes Routing (<code>/api/*</code> → Backend, sonst → Frontend). Beherrscht mehrere Hostnamen gleichzeitig.</td><td><code>caddy:2</code></td></tr>
     <tr><td><b>frontend</b></td><td>Next.js 14 App-Router-UI. Überwiegend clientseitig; React Query spricht <code>/api</code> an.</td><td>Build aus <code>frontend/</code></td></tr>
     <tr><td><b>docs</b></td><td>Separate statische Next.js-Site unter <code>wiki.burkhart-partners.ch</code>.</td><td>Build aus <code>bp-docu/</code></td></tr>
-    <tr><td><b>backend</b></td><td>FastAPI-Monolith. Eine Datei: <code>backend/main.py</code>. Läuft mit uvicorn im <b>Single-Worker-Modus</b>.</td><td>Build aus <code>backend/</code></td></tr>
+    <tr><td><b>backend</b></td><td>Das Herzstück der Anwendung, geschrieben mit FastAPI in Python. Der gesamte Server-Code lebt in einer einzelnen grossen Datei (<code>backend/main.py</code>) — bewusst nicht in viele kleine Module aufgeteilt. Das Backend läuft mit dem Webserver <code>uvicorn</code> im <b>Single-Worker-Modus</b> (nur ein Prozess auf einmal).</td><td>Build aus <code>backend/</code></td></tr>
     <tr><td><b>postgres</b></td><td>Sämtlicher State: Auth, Sessions, verschlüsselte OAuth-Tokens, Import-Historie, Embedding-Cache, Billing, KI-Audit.</td><td><code>postgres:16</code></td></tr>
     <tr><td><b>minio</b></td><td>S3-kompatibel. Aktuell <b>bereitgestellt, aber nicht genutzt</b> — reserviert für spätere Blob-Ablage.</td><td><code>minio/minio</code></td></tr>
     <tr><td><b>tasktrack</b></td><td>Interne, nicht zu BexFLOW gehörende Aufgabenverwaltung, die denselben Caddy nutzt. Kann ignoriert werden.</td><td>Build aus <code>/home/ubuntu/TaskTrack</code></td></tr>
@@ -624,10 +665,12 @@ Duplikate werden nicht abgerechnet.</p>
 </div>
 
 <div class="call note">
-Das Backend ist bewusst ein Ein-Datei-Monolith. Ein Split von
-<code>main.py</code> in <code>APIRouter</code>-Module ist als Folgearbeit
-erfasst, wurde aber während des Live-Betriebs mit realen Mandanten als zu
-riskant eingestuft. Kein Bug, sondern eine bewusste Entscheidung.
+Das Backend ist bewusst in einer einzigen grossen Datei organisiert. Ein
+Aufteilen in mehrere Module (in FastAPI meist <code>APIRouter</code>-Dateien)
+ist als Folgearbeit erfasst, wurde aber während des Live-Betriebs mit realen
+Mandanten als zu riskant eingestuft — jede Umstrukturierung eines
+5–8&nbsp;kLoC-Files birgt in einem Produktivsystem ein spürbares
+Regressions-Risiko. Kein Bug, sondern eine bewusste Entscheidung.
 </div>
 
   </div>
@@ -713,7 +756,7 @@ riskant eingestuft. Kein Bug, sondern eine bewusste Entscheidung.
     <div class="section-num">§05</div>
     <div class="titles">
       <div class="eyebrow">Backend</div>
-      <h2>Der FastAPI-Monolith</h2>
+      <h2>Das Backend in einer Datei</h2>
     </div>
   </div>
   <div class="content-inner">
@@ -1237,12 +1280,26 @@ dedupliziert über die Event-ID. Es ist der einzige eingehende Webhook.</p>
 <h3>Voraussetzungen</h3>
 <ul>
   <li>Docker + Docker-Compose-Plugin (Compose v2).</li>
-  <li>Python 3.11 (nur, wenn das Backend ausserhalb Docker läuft).</li>
-  <li>Node 18+ (nur, wenn das Frontend ausserhalb Docker läuft).</li>
-  <li>Eine <b>bexio-Developer-App</b> mit OAuth-Client-ID/Secret. Registrierung unter <code>developer.bexio.com</code>. Als erlaubte Redirect-URI: <code>http://localhost/api/bexio/callback</code>.</li>
+  <li>Python 3.11 (nur nötig, wenn das Backend ausserhalb Docker läuft).</li>
+  <li>Node 18+ (nur nötig, wenn das Frontend ausserhalb Docker läuft).</li>
+  <li>Eine <b>bexio-Developer-App</b> mit OAuth-Client-ID/-Secret. Registrierung unter <code>developer.bexio.com</code>. Als erlaubte Redirect-URI: <code>http://localhost/api/bexio/callback</code>.</li>
   <li>Ein <b>Infomaniak-AI-Produkt</b> mit API-Key.</li>
   <li>Optional: Stripe-Testkonto für die Billing-Endpunkte.</li>
 </ul>
+
+<h3>Empfohlene Entwicklungsumgebung</h3>
+<p>Es hilft, den Editor mit KI-Assistenz auszustatten — der Codebase ist gross
+und schneller lesbar, wenn ein Assistent Fragen zum Kontext beantworten kann:</p>
+<ul>
+  <li><b>Visual Studio Code</b> ist die empfohlene IDE. Kostenlos, schnell, mit passender Erweiterungsauswahl.</li>
+  <li><b>Claude Code</b>-Erweiterung: erlaubt es, direkt im Editor mit Anthropics Claude über den Code zu chatten. Für viele Nachvollzieh-Fragen zu <code>main.py</code> die praktischste Wahl.</li>
+  <li><b>OpenAI-Codex</b>- oder <b>GitHub-Copilot</b>-Erweiterung als Alternative bzw. Ergänzung — nützlich für Autocomplete und schnelle „was macht dieser Block?"-Antworten.</li>
+  <li>Weitere sinnvolle Extensions: <b>Python</b> (mit Pylance für Type-Hints), <b>ESLint</b> und <b>Prettier</b> für das Frontend.</li>
+</ul>
+<p>Konzeptionell arbeitet die Kombination am besten so: das Repo öffnen,
+in einem Terminal-Fenster das Backend starten (siehe unten), in einem zweiten
+das Frontend, und Änderungen mit dem KI-Assistenten schrittweise besprechen,
+bevor sie gepusht werden.</p>
 
 <h3>Minimale <code>.env</code></h3>
 <p>Datei <code>/opt/bp-pilot/app/.env</code> erstellen (aus
@@ -1338,6 +1395,18 @@ NEXT_PUBLIC_API_BASE=http://localhost:8000 npm run dev</pre>
   <li><b>Pfad</b>: <code>/opt/bp-pilot/app</code>.</li>
   <li><b>Deploy-Branch</b>: <code>main</code>.</li>
 </ul>
+
+<div class="call warn">
+Wichtig für den Einstieg: Der Deploy-Ablauf ist heute
+<b>halbautomatisch</b>. Auf <code>origin/main</code> pushen bedeutet nicht,
+dass der Code sofort live geht — es braucht anschliessend den
+<code>git pull</code>+<code>docker compose up --build</code>-Schritt auf dem
+Server (siehe unten). Aber: sobald jemand deploy­t, landet, was auf
+<code>main</code> steht, unmittelbar auf dem Live-System. Es gibt kein
+Staging und kein automatisches Test-Gate dazwischen. Daher: Änderungen
+lokal ausprobieren, Tests grün fahren, dann pushen — und den Deploy
+möglichst nicht am späten Nachmittag anstossen.
+</div>
 
 <h3>Standard-Deploy</h3>
 <pre>ssh ubuntu@app.bexflow.ch
@@ -1483,6 +1552,19 @@ folgendem Befehl sichern:</p>
   </div>
   <div class="content-inner">
 
+<h3>Warum es überhaupt Tests gibt</h3>
+<p>Der Backend-Code liegt in einer einzigen grossen Datei mit sehr viel
+Logik. Ohne automatische Tests würde jede Änderung an einer Stelle das
+Risiko erhöhen, an einer anderen Stelle unbemerkt etwas kaputtzumachen —
+gerade unangenehm, weil ein Push auf <code>main</code> nach einem Deploy
+sofort live steht (siehe §12).</p>
+<p>Die Tests fangen genau das ab: sie fahren die wichtigsten Abläufe
+(Login, Idempotenz, Rate-Limits, Stripe-Webhook, KI-Parsing …) automatisch
+einmal durch und melden Regressionen, bevor sie den Live-Server erreichen.
+Deshalb gilt: vor jedem Push oder Deploy zumindest <code>pytest -q</code>
+im <code>backend/</code>-Ordner laufen lassen. Grün ist die minimale
+Voraussetzung.</p>
+
 <h3>Backend</h3>
 <pre>cd backend
 pytest -q</pre>
@@ -1491,7 +1573,8 @@ Rate-Limits, Stripe-Webhook, sicherheitsorientierte Upload-Prüfungen,
 bexio-Session-Bindung, IDOR beim Account-Löschen, Crypto, KV-Verschlüsselung,
 KI-Parsing/-Booking/-Semantik, Duplikat-Ledger, Konfidenz-Kalibrierung,
 Regel-Store, Regel-Mining, Seed-Wissen, Marketing-Mailliste. Tests laufen mit
-SQLite (In-Memory oder Tempfile) — keine echte DB nötig.</p>
+SQLite (In-Memory oder Tempfile) — keine echte DB nötig, damit sie schnell
+und ohne Setup laufen.</p>
 
 <h3>Frontend</h3>
 <pre>cd frontend
@@ -1615,8 +1698,8 @@ den Modulen unter <code>backend/app/services/</code>.
 </section>
 
 <footer class="foot">
-  <div>BexFLOW · Technische Übergabe</div>
-  <div>Ende des Dokuments</div>
+  <div>BexFLOW · Technische Dokumentation</div>
+  <div><a class="foot-download" href="/downloads/BexFLOW_Uebergabe.pdf" download>Als PDF speichern</a></div>
 </footer>
 
 </div><!-- /.content -->
