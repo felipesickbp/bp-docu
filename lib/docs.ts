@@ -21,6 +21,8 @@ export type Doc = {
   description: string;
   section: string;
   navOrder: number;
+  navParent: string;
+  navHidden: boolean;
   lastModified: string;
   content: string;
   href: string;
@@ -36,10 +38,13 @@ export type SearchEntry = {
 
 export type NavGroup = {
   label: string;
-  items: Array<{
-    title: string;
-    href: string;
-  }>;
+  items: NavItem[];
+};
+
+export type NavItem = {
+  title: string;
+  href: string;
+  items: NavItem[];
 };
 
 function walkMdxFiles(dir: string): string[] {
@@ -96,6 +101,8 @@ export function getAllDocs(): Doc[] {
         description: String(data.description ?? ""),
         section: String(data.section ?? "Allgemein"),
         navOrder: Number(data.navOrder ?? 999),
+        navParent: String(data.navParent ?? ""),
+        navHidden: Boolean(data.navHidden ?? false),
         lastModified: String(lastModifiedByHref[slugToHref(slug) as keyof typeof lastModifiedByHref] ?? ""),
         content,
         href: slugToHref(slug),
@@ -114,12 +121,17 @@ export function getAllDocSlugs() {
 
 export function getNavigation(): NavGroup[] {
   const groups = new Map<string, NavGroup>();
+  const docs = getAllDocs();
 
   for (const section of SECTION_ORDER) {
     groups.set(section, { label: section, items: [] });
   }
 
-  for (const doc of getAllDocs()) {
+  for (const doc of docs) {
+    if (doc.navHidden || doc.navParent) {
+      continue;
+    }
+
     if (!groups.has(doc.section)) {
       groups.set(doc.section, { label: doc.section, items: [] });
     }
@@ -127,6 +139,13 @@ export function getNavigation(): NavGroup[] {
     groups.get(doc.section)?.items.push({
       title: doc.title,
       href: doc.href,
+      items: docs
+        .filter((child) => !child.navHidden && child.navParent === doc.href)
+        .map((child) => ({
+          title: child.title,
+          href: child.href,
+          items: [],
+        })),
     });
   }
 
@@ -146,7 +165,7 @@ export function getNavigation(): NavGroup[] {
 }
 
 export function getSearchEntries(): SearchEntry[] {
-  return getAllDocs().map((doc) => ({
+  return getAllDocs().filter((doc) => !doc.navHidden).map((doc) => ({
     title: doc.title,
     description: doc.description,
     section: doc.section,

@@ -12,13 +12,19 @@ type SidebarNavProps = {
   onNavigate?: () => void;
 };
 
+type NavItem = NavGroup["items"][number];
+
+function navItemMatches(item: NavItem, currentPath: string): boolean {
+  return item.href === currentPath || item.items.some((child) => navItemMatches(child, currentPath));
+}
+
 export function SidebarNav({
   navigation,
   currentPath,
   onNavigate,
 }: SidebarNavProps) {
   const activeGroupLabel =
-    navigation.find((group) => group.items.some((item) => item.href === currentPath))?.label ?? null;
+    navigation.find((group) => group.items.some((item) => navItemMatches(item, currentPath)))?.label ?? null;
   const [expandedGroup, setExpandedGroup] = useState<string | null>(
     currentPath === "/" ? null : activeGroupLabel,
   );
@@ -78,21 +84,51 @@ export function SidebarNav({
               <div className="mt-2 space-y-1 px-2 pb-2">
                 {group.items.map((item) => {
                   const isActive = currentPath === item.href;
+                  const hasActiveChild = item.items.some((child) => navItemMatches(child, currentPath));
+                  const hasChildren = item.items.length > 0;
 
                   return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={onNavigate}
-                      className={clsx(
-                        "block rounded-2xl px-3 py-2.5 text-sm transition",
-                        isActive
-                          ? "bg-pine text-white shadow-sm"
-                          : "text-slate hover:bg-white/80 hover:text-ink",
-                      )}
-                    >
-                      {item.title}
-                    </Link>
+                    <div key={item.href}>
+                      <Link
+                        href={item.href}
+                        onClick={onNavigate}
+                        className={clsx(
+                          "block rounded-2xl px-3 py-2.5 text-sm transition",
+                          isActive
+                            ? "bg-pine text-white shadow-sm"
+                            : hasActiveChild
+                              ? "bg-white/85 font-semibold text-ink shadow-sm"
+                              : "text-slate hover:bg-white/80 hover:text-ink",
+                        )}
+                        aria-current={isActive ? "page" : undefined}
+                      >
+                        {item.title}
+                      </Link>
+                      {hasChildren ? (
+                        <div className="ml-3 mt-1 space-y-1 border-l border-pine/15 pl-2">
+                          {item.items.map((child) => {
+                            const isChildActive = currentPath === child.href;
+
+                            return (
+                              <Link
+                                key={child.href}
+                                href={child.href}
+                                onClick={onNavigate}
+                                className={clsx(
+                                  "block rounded-xl px-3 py-2 text-[13px] transition",
+                                  isChildActive
+                                    ? "bg-pine text-white shadow-sm"
+                                    : "text-slate hover:bg-white/80 hover:text-ink",
+                                )}
+                                aria-current={isChildActive ? "page" : undefined}
+                              >
+                                {child.title}
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      ) : null}
+                    </div>
                   );
                 })}
               </div>
